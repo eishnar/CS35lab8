@@ -1,0 +1,38 @@
+% This LaTeX file contains your written lab questions.  You may answer these
+% questions just by inserting your answer into this document.  You are not
+% *required* to do your homework in LaTeX, but it's quite likely to be easier
+% than e.g. the equation editor in OpenOffice Writer or Microsoft Word.
+%
+% If you're unfamiliar with LaTeX, see the document LearningLaTeX.tex in this
+% same directory.  It contains a brief explanation and a few snippets of LaTeX
+% code to get you started; in fact, it should have everything you need to
+% complete this assignment.
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{algpseudocode}
+\usepackage{algorithmicx}
+\usepackage{tikz}
+
+\begin{document}
+
+\section{AVL Trees}
+
+\noindent \textbf{Problem 1.} Perform a right rotation on the root of the following tree.  Be sure to specify the subtrees used in the rotation.
+
+\input{written-trees/problem1.1} % This is a lot like a #include in C++: it brings in the contents of problem1.1.tex and puts it here.
+
+\noindent \textbf{Problem 2.} Show the left rotation of the subtree rooted at 27.  Be sure to specify the subtrees used in the rotation.
+
+\input{written-trees/problem1.2}
+
+\noindent \textbf{Problem 3.} Using the appropriate AVL tree algorithm, insert the value 47 into the following tree.  Show the tree before and after rebalancing.
+
+\input{written-trees/problem1.3}
+
+\noindent \textbf{Problem 4.} Using the appropriate AVL tree algorithm, remove the value 24 from the following tree.  Show the tree before and after \textit{each} rebalancing.
+
+\input{written-trees/problem1.4}
+
+\end{document}
