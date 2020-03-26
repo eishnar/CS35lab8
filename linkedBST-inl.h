@@ -23,7 +23,10 @@ using std::runtime_error;
 using std::vector;
 
 template <typename K, typename V> LinkedBST<K, V>::LinkedBST() {
-    throw runtime_error("Not yet implemented: LinkedBST<K,V>::LinkedBST");
+
+    this->size = 0;
+    this->root = nullptr; //only two data members in the constructor. rest will be pointers to link stuff.
+
 }
 
 template <typename K, typename V> LinkedBST<K, V>::~LinkedBST() {
@@ -31,39 +34,45 @@ template <typename K, typename V> LinkedBST<K, V>::~LinkedBST() {
 }
 
 template <typename K, typename V> int LinkedBST<K, V>::getSize() {
-    throw runtime_error("Not yet implemented: LinkedBST<K,V>::getSize");
+  return this->size;
 }
 
 template <typename K, typename V> bool LinkedBST<K, V>::isEmpty() {
-    throw runtime_error("Not yet implemented: LinkedBST<K,V>::isEmpty");
+  return(this->size==0);
 }
 
-template <typename K, typename V> void LinkedBST<K, V>::insert(K key, V value) {
-    throw runtime_error("Not yet implemented: LinkedBST<K,V>::insert");
+template <typename K, typename V> void LinkedBST<K, V>::insert(K key, V value) { //VOID
+    insertInSubtree(this->root, key, value);
 }
 
-template <typename K, typename V> void LinkedBST<K, V>::update(K key, V value) {
-    throw runtime_error("Not yet implemented: LinkedBST<K,V>::update");
+template <typename K, typename V> void LinkedBST<K, V>::update(K key, V value) { //VOID
+    updateInSubtree(this->root, key, value); // three parameters
 }
 
-template <typename K, typename V> V LinkedBST<K, V>::get(K key) {
-    return this->findInSubtree(this->root, key);
+
+template <typename K, typename V> V LinkedBST<K, V>::get(K key) { //ALREADY IMPLEMENTED
+    return this->findInSubtree(this->root, key); //only two parameters
+
 }
 
 template <typename K, typename V> bool LinkedBST<K, V>::contains(K key) {
-    throw runtime_error("Not yet implemented: LinkedBST<K,V>::contains");
+    return containsInSubtree(this->root, key); //only two parameters
+
 }
 
-template <typename K, typename V> void LinkedBST<K, V>::remove(K key) {
-    throw runtime_error("Not yet implemented: LinkedBST<K,V>::remove");
+template <typename K, typename V> void LinkedBST<K, V>::remove(K key) { //VOID
+    removeFromSubtree(this->root, key); //only two parameters
 }
 
+
+
+//NOT DIRECT CALL.
 template <typename K, typename V> vector<K> LinkedBST<K, V>::getKeys() {
     throw runtime_error("Not yet implemented: LinkedBST<K,V>::getKeys");
 }
 
 template <typename K, typename V>
-vector<pair<K, V>> LinkedBST<K, V>::getItems() {
+vector<pair<K, V>> LinkedBST<K, V>::getItems() { //already implemented.
     return this->traverseInOrder();
 }
 
@@ -72,17 +81,19 @@ template <typename K, typename V> int LinkedBST<K, V>::getHeight() {
 }
 
 template <typename K, typename V> K LinkedBST<K, V>::getMaxKey() {
-    throw runtime_error("Not yet implemented: LinkedBST<K,V>::getMax");
+
+  pair<K, V> max_pair = getMaxInSubtree(this->root);
+  return max_pair<K>;
+
 }
 
 template <typename K, typename V> K LinkedBST<K, V>::getMinKey() {
-    throw runtime_error("Not yet implemented: LinkedBST<K,V>::getMin");
+  return getMinInSubtree(this->root);
 }
 
-template <typename K, typename V>
-vector<pair<K, V>> LinkedBST<K, V>::traversePreOrder() {
-    throw runtime_error(
-        "Not yet implemented: LinkedBST<K,V>::traversePreOrder");
+template <typename K, typename V> vector<pair<K, V>> LinkedBST<K, V>::traversePreOrder() {
+    //  return buildPreOrderTraversal(this->root, somelist);
+    throw runtime_error("Not yet implemented: LinkedBST<K,V>::traverseInOrder");
 }
 
 template <typename K, typename V>
