@@ -7,6 +7,18 @@
   https://tinyurl.com/vdxo2w8
 */
 
+// This file contains unit tests for the linkedBST class.
+// Most of the unit tests have been provided for you, but you
+//  will need to implement unit tests for three linkedBST methods:
+//  contains(), getKeys(), and traverseInOrder().
+//
+// Each of these will have a TO DO: comment below.  Look at the other unit
+//  tests for guidance on how to write them.
+
+// NOTE: Be sure to make frequent use of the checkInvariants method
+// which verifies that your BST contains the correct number of nodes
+// and has properly implemented the BST property.
+
 #include <cmath>
 #include <iostream>
 #include <sstream>
@@ -85,26 +97,111 @@ TEST(exampleBSTSize) {
     delete bst;
 }
 
-// NOTE: Be sure to make frequent use of the checkInvariants method
-// which verifies that your BST contains the correct number of nodes
-// and has properly implemented the BST property.
 
-// TODO: test LinkedBST<K,V>::update
+// test LinkedBST<K,V>::update
+TEST(exampleBSTUpdate) {
+  LinkedBST<int, string>* bst = makeExampleBST();
+  CHECK_EQUAL("7", bst->get(7));
+  CHECK_EQUAL("4", bst->get(4));
+  bst->update(7,"77");
+  CHECK_EQUAL("77", bst->get(7));
+  bst->update(4, "7");
+  CHECK_EQUAL("7", bst->get(4));
+  bst->checkInvariants();
+  delete bst;
+}
 
-// TODO: test LinkedBST<K,V>::contains
+// test LinkedBST<K,V>::remove
+TEST(exampleRemove) {
+  LinkedBST<int, string> *bst = makeExampleBST();
+  CHECK_EQUAL(7, bst->getSize());
+  // check removal of node that has just right child
+  bst->remove(7);
+  CHECK_EQUAL(6, bst->getSize());
+  bst->checkInvariants();
 
-// TODO: test LinkedBST<K,V>::remove
+  // check removal of leaf
+  bst->remove(9);
+  CHECK_EQUAL(5, bst->getSize());
+  bst->checkInvariants();
 
-// TODO: test LinkedBST<K,V>::getKeys
+  // check removal of node with just left child
+  bst->remove(4);
+  CHECK_EQUAL(4, bst->getSize());
+  bst->checkInvariants();
 
-// TODO: test LinkedBST<K,V>::getItems
+  // check removal of node with two children
+  bst->remove(2);
+  CHECK_EQUAL(3, bst->getSize());
+  bst->checkInvariants();
 
-// TODO: test LinkedBST<K,V>::getHeight
+  delete bst;
+}
 
-// TODO: test LinkedBST<K,V>::getMax
 
-// TODO: test LinkedBST<K,V>::getMin
+// test LinkedBST<K,V>::getItems
+TEST(exampleGetItems) {
+  LinkedBST<int, string>* bst = makeExampleBST();
+  vector<string> myitems;
 
+  // don't forget to add in expected items
+  myitems.push_back("1");
+  myitems.push_back("2");
+  myitems.push_back("3");
+  myitems.push_back("4");
+  myitems.push_back("6");
+  myitems.push_back("7");
+  myitems.push_back("9");
+
+  vector<pair<int, string> > items = bst->getItems();
+  CHECK_EQUAL(myitems.size(), items.size());
+  if(myitems.size() == items.size()) {
+    for(int i=0; i<myitems.size(); i++) {
+      int count =0;
+      for(int j=0; j<items.size(); j++) {
+        if(items[j].second == myitems[i]) {
+          count++;
+        }
+      }
+      CHECK_EQUAL(1, count);
+    }
+  }
+  delete bst;
+}
+
+// test LinkedBST<K,V>::getHeight
+TEST(exampleGetHeight) {
+  LinkedBST<int, string>* bst = makeExampleBST();
+
+  CHECK_EQUAL(3, bst->getHeight());
+  bst->insert(10, "10");
+  bst->insert(11, "11");
+  bst->insert(12, "12");
+  CHECK_EQUAL(5, bst->getHeight());
+  bst->checkInvariants();
+  delete bst;
+}
+
+// test LinkedBST<K,V>::getMax
+TEST(exampleGetMax) {
+  LinkedBST<int, string>*bst = makeExampleBST();
+  CHECK_EQUAL(9, bst->getMaxKey());
+  bst->insert(11, "11");
+  CHECK_EQUAL(11, bst->getMaxKey());
+  delete bst;
+}
+
+// test LinkedBST<K,V>::getMin
+TEST(exampleGetMin) {
+  LinkedBST<int, string>* bst = makeExampleBST();
+  CHECK_EQUAL(1, bst->getMinKey());
+  bst->insert(-4, "-4");
+  CHECK_EQUAL(-4, bst->getMinKey());
+
+  delete bst;
+}
+
+// test LinkedBST<K,V>::traversePreOrder
 TEST(examplePreOrderTraversal) {
     LinkedBST<int, string>* bst = makeExampleBST();
     vector<pair<int, string>> traversal = bst->traversePreOrder();
@@ -126,11 +223,57 @@ TEST(examplePreOrderTraversal) {
     delete bst;
 }
 
-// TODO: test LinkedBST<K,V>::getInOrder
 
-// TODO: test LinkedBST<K,V>::getPostOrder
+// test LinkedBST<K,V>::traversePostOrder
+TEST(examplePostOrderTraversal) {
+    LinkedBST<int, string>* bst = makeExampleBST();
+    vector<pair<int, string>> traversal = bst->traversePostOrder();
 
-// TODO: test LinkedBST<K,V>::getLevelOrder
+    // build vector containing what we the ordering should be
+    vector<pair<int, string>> expected;
+    expected.push_back(pair<int, string>(1, "1"));
+    expected.push_back(pair<int, string>(3, "3"));
+    expected.push_back(pair<int, string>(4, "4"));
+    expected.push_back(pair<int, string>(2, "2"));
+    expected.push_back(pair<int, string>(9, "9"));
+    expected.push_back(pair<int, string>(7, "7"));
+    expected.push_back(pair<int, string>(6, "6"));
+    REQUIRE CHECK_EQUAL(expected.size(), traversal.size());
+    for (int i = 0; i < expected.size(); i++) {
+        CHECK_EQUAL(expected[i].first, traversal[i].first);
+        CHECK_EQUAL(expected[i].second, traversal[i].second);
+    }
+    delete bst;
+}
+
+// test LinkedBST<K,V>::traverseLevelOrder
+TEST(exampleLevelOrderTraversal) {
+    LinkedBST<int, string>* bst = makeExampleBST();
+    vector<pair<int, string>> traversal = bst->traverseLevelOrder();
+
+    // build vector containing what we the ordering should be
+    vector<pair<int, string>> expected;
+    expected.push_back(pair<int, string>(6, "6"));
+    expected.push_back(pair<int, string>(2, "2"));
+    expected.push_back(pair<int, string>(7, "7"));
+    expected.push_back(pair<int, string>(1, "1"));
+    expected.push_back(pair<int, string>(4, "4"));
+    expected.push_back(pair<int, string>(9, "9"));
+    expected.push_back(pair<int, string>(3, "3"));
+    REQUIRE CHECK_EQUAL(expected.size(), traversal.size());
+    for (int i = 0; i < expected.size(); i++) {
+        CHECK_EQUAL(expected[i].first, traversal[i].first);
+        CHECK_EQUAL(expected[i].second, traversal[i].second);
+    }
+    delete bst;
+}
+
+// TODO: test LinkedBST<K,V>::contains
+
+// TODO: test LinkedBST<K,V>::getKeys
+
+// TODO: test LinkedBST<K,V>::traverseInOrder
+
 
 int main() {
     return UnitTest::RunAllTests();
