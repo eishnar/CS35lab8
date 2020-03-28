@@ -33,42 +33,49 @@ template <typename K, typename V> LinkedBST<K, V>::~LinkedBST() {
     // To do: implement the destructor
 }
 
-template <typename K, typename V> int LinkedBST<K, V>::getSize() {
+template <typename K, typename V>
+int LinkedBST<K, V>::getSize() {
   return this->size;
 }
 
-template <typename K, typename V> bool LinkedBST<K, V>::isEmpty() {
+template <typename K, typename V>
+bool LinkedBST<K, V>::isEmpty() {
   return(this->size==0);
 }
 
-template <typename K, typename V> void LinkedBST<K, V>::insert(K key, V value) { //VOID
+template <typename K, typename V>
+void LinkedBST<K, V>::insert(K key, V value) { //VOID
     insertInSubtree(this->root, key, value);
 }
 
-template <typename K, typename V> void LinkedBST<K, V>::update(K key, V value) { //VOID
+template <typename K, typename V>
+void LinkedBST<K, V>::update(K key, V value) { //VOID
     updateInSubtree(this->root, key, value); // three parameters
 }
 
 
-template <typename K, typename V> V LinkedBST<K, V>::get(K key) { //ALREADY IMPLEMENTED
+template <typename K, typename V>
+V LinkedBST<K, V>::get(K key) { //ALREADY IMPLEMENTED
     return this->findInSubtree(this->root, key); //only two parameters
 
 }
 
-template <typename K, typename V> bool LinkedBST<K, V>::contains(K key) {
+template <typename K, typename V>
+bool LinkedBST<K, V>::contains(K key) {
     return containsInSubtree(this->root, key); //only two parameters
 
 }
 
-template <typename K, typename V> void LinkedBST<K, V>::remove(K key) { //VOID
+template <typename K, typename V>
+void LinkedBST<K, V>::remove(K key) { //VOID
     removeFromSubtree(this->root, key); //only two parameters
 }
 
 
 
-//NOT DIRECT CALL.
-template <typename K, typename V> vector<K> LinkedBST<K, V>::getKeys() {
-    throw runtime_error("Not yet implemented: LinkedBST<K,V>::getKeys");
+template <typename K, typename V> //ASK ABOUT THIS.
+vector<K> LinkedBST<K, V>::getKeys() {
+  return getKeys();
 }
 
 template <typename K, typename V>
@@ -76,39 +83,64 @@ vector<pair<K, V>> LinkedBST<K, V>::getItems() { //already implemented.
     return this->traverseInOrder();
 }
 
-template <typename K, typename V> int LinkedBST<K, V>::getHeight() {
-    return this->getHeightInSubtree(this->root);
+template <typename K, typename V>
+int LinkedBST<K, V>::getHeight() {
+
+    return this->getHeightInSubtree(this->root); //ASK IF NEED TO RECURSE UNTIL A CERTIAN POINT.
 }
 
-template <typename K, typename V> K LinkedBST<K, V>::getMaxKey() {
+template <typename K, typename V>
+K LinkedBST<K, V>::getMaxKey() {
 
   pair<K, V> max_pair = getMaxInSubtree(this->root);
-  return max_pair<K>;
-
+  return max_pair.getKey();
 }
 
-template <typename K, typename V> K LinkedBST<K, V>::getMinKey() {
-  return getMinInSubtree(this->root);
+template <typename K, typename V>
+K LinkedBST<K, V>::getMinKey() {
+
+  pair<K, V> min_pair = getMaxInSubtree(this->root);
+  return min_pair.getKey();
 }
 
-template <typename K, typename V> vector<pair<K, V>> LinkedBST<K, V>::traversePreOrder() {
+template <typename K, typename V>
+vector<pair<K, V>> LinkedBST<K, V>::traversePreOrder() {
     //  return buildPreOrderTraversal(this->root, somelist);
-    throw runtime_error("Not yet implemented: LinkedBST<K,V>::traverseInOrder");
-}
+
+
+    vector<pair<K,V>> pre_traversal;
+
+    return pre_traversal;
+  }
+
+
+
 
 template <typename K, typename V>
 vector<pair<K, V>> LinkedBST<K, V>::traverseInOrder() {
-    throw runtime_error("Not yet implemented: LinkedBST<K,V>::traverseInOrder");
+  vector<pair<K,V>> inorder_traversal;
+
+  return inorder_traversal;
 }
+
+
+
 
 template <typename K, typename V>
 vector<pair<K, V>> LinkedBST<K, V>::traversePostOrder() {
-    throw runtime_error(
-        "Not yet implemented: LinkedBST<K,V>::traversePostOrder");
+
+  vector<pair<K,V>> post_traversal;
+
+  return post_traversal;
+
 }
+
+
+
 
 template <typename K, typename V>
 vector<pair<K, V>> LinkedBST<K, V>::traverseLevelOrder() {
+
     // Start BFS at root. As nodes are removed from queue, add pairs to vector.
     vector<pair<K,V>> level_traversal;
 
@@ -118,6 +150,8 @@ vector<pair<K, V>> LinkedBST<K, V>::traverseLevelOrder() {
     if (this->root != nullptr) {
         STLQueue<LinkedBSTNode<K,V>*> search_queue;
         search_queue.enqueue(this->root);
+
+
         while (search_queue.getSize() > 0) {
             LinkedBSTNode<K,V>* current = search_queue.dequeue();
             // Add to traversal
@@ -133,6 +167,9 @@ vector<pair<K, V>> LinkedBST<K, V>::traverseLevelOrder() {
 
     return level_traversal;
 }
+
+
+
 
 template <typename K, typename V> void LinkedBST<K, V>::checkInvariants() {
     if (this->countNodes(this->root) != this->size) {
