@@ -268,12 +268,66 @@ TEST(exampleLevelOrderTraversal) {
     delete bst;
 }
 
-// TODO: test LinkedBST<K,V>::contains
+//test LinkedBST<K,V>::contains
+TEST(exampleContains){
+  LinkedBST<int, string>* bst = makeExampleBST();
 
-// TODO: test LinkedBST<K,V>::getKeys
+  CHECK_EQUAL(true, bst->contains(9));
+  CHECK_EQUAL(false, bst->contains(-9));
 
-// TODO: test LinkedBST<K,V>::traverseInOrder
+  //insert a new key value pair and
+  bst->insert(-4, "-4");
+  CHECK_EQUAL(8, bst->getHeight());
+  bst->checkInvariants();
+  CHECK_EQUAL(true, bst->contains(-4));
 
+  //remove a key value pair. then check contains.
+  bst->remove(3);
+  CHECK_EQUAL(7, bst->getHeight());
+  bst->checkInvariants();
+  CHECK_EQUAL(false, bst->contains(3));
+
+
+  delete bst;
+}
+
+//test LinkedBST<K,V>::getKeys
+TEST(exampleGetKeys){
+  LinkedBST<int, string>* bst = makeExampleBST();
+
+  vector<K> all_keys;
+  all_keys = <1,2,3,5,6,7,8,9>;
+
+  CHECK_EQUAL(all_keys, bst->getKeys())
+
+  delete bst;
+
+}
+
+//test LinkedBST<K,V>::traverseInOrder
+TEST(exampleInOrderTraversal){
+  LinkedBST<int, string>* bst = makeExampleBST();
+  vector<pair<int, string>> traversal = bst->traverseInOrder();
+
+  //order of keys is changed.
+  vector<pair<int, string>> expected;
+  expected.push_back(pair<int, string>(1, "1"));
+  expected.push_back(pair<int, string>(2, "2"));
+  expected.push_back(pair<int, string>(3, "3"));
+  expected.push_back(pair<int, string>(4, "4"));
+  expected.push_back(pair<int, string>(6, "6"));
+  expected.push_back(pair<int, string>(7, "7"));
+  expected.push_back(pair<int, string>(9, "9"));
+  REQUIRE CHECK_EQUAL(expected.size(), traversal.size());
+  for (int i = 0; i < expected.size(); i++) {
+      CHECK_EQUAL(expected[i].first, traversal[i].first);
+      CHECK_EQUAL(expected[i].second, traversal[i].second);
+  }
+
+  delete bst;
+
+
+}
 
 int main() {
     return UnitTest::RunAllTests();
