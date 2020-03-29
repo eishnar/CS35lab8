@@ -17,6 +17,7 @@ using std::runtime_error;
 
 template <typename K, typename V>
 V LinkedBST<K, V>::findInSubtree(LinkedBSTNode<K, V>* current, K key) {
+
     //If key not found, throw an error
     if (current == nullptr) {
         throw runtime_error("Key not found: LinkedBST<K,V>::findInSubtree");
@@ -37,14 +38,75 @@ V LinkedBST<K, V>::findInSubtree(LinkedBSTNode<K, V>* current, K key) {
 
 template <typename K, typename V>
 bool LinkedBST<K, V>::containsInSubtree(LinkedBSTNode<K, V>* current, K key) {
-    throw runtime_error(
-        "Not yet implemented: LinkedBST<K,V>::containsInSubtree");
+
+  //if tree has no contents, can't find
+  if (current == nullptr) {
+      return false;
+      //throw runtime_error("Key not found: LinkedBST<K,V>::contains");
+  }
+  //if the root is the key you are looking for, the subtree contains the root, thus it's true
+  else if (key == current->getKey()) {
+    return true;
+  }
+
+  else if (key < current->getKey()) {
+    current = current->getLeft(); //change pointer of current to check the value to the left of the root.
+    if (key == current){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+
+  else if (key > current->getKey()) {
+    current = current->getRight(); //change pointer of current to check the value to the left of the root.
+    if (key == current){
+      return true;
+    }
+    else{
+      return false;
+    }
+
+  }
 }
 
 template <typename K, typename V>
 void LinkedBST<K, V>::updateInSubtree(LinkedBSTNode<K, V>* current, K key,
                                       V value) {
-    throw runtime_error("Not yet implemented: LinkedBST<K,V>::updateInSubtree");
+
+  //if tree has no contents, can't update anything
+  if (current == nullptr) {
+      throw runtime_error("Key not found: LinkedBST<K,V>::updateInSubtree");
+  }
+  //if the root is the key you are looking for, the subtree contains the root, thus it's true
+  else if (key == current->getKey()) {
+    current->setValue(value); //update they key's value since you found it.
+  }
+
+  else if (key < current->getKey()) {
+    current = current->getLeft(); //change pointer of current to check the value to the right of the root.
+    if (key == current){
+      current->setValue(value); //update they key's value since you found it.
+    }
+    else{
+      runtime_error("Key not found: LinkedBST<K,V>::updateInSubtree");
+      //ASK DURING OH. do we only check directly below. to the left and to the right??
+    }
+  }
+
+  else if (key > current->getKey()) {
+    current = current->getRight(); //change pointer of current to check the value to the right of the root.
+    if (key == current){
+      current->setValue(value); //update they key's value since you found it.
+    }
+    else{
+      runtime_error("Key not found: LinkedBST<K,V>::updateInSubtree");
+      //ASK DURING OH. do we assume user provides a key that exists in the tree?
+    }
+
+  }
+
 }
 
 template <typename K, typename V>
@@ -66,7 +128,47 @@ int LinkedBST<K, V>::getHeightInSubtree(LinkedBSTNode<K, V>* current) {
 
 template <typename K, typename V>
 pair<K, V> LinkedBST<K, V>::getMinInSubtree(LinkedBSTNode<K, V>* current) {
-    throw runtime_error("Not yet implemented: LinkedBST<K,V>::getMinInSubtree");
+
+// pair<K, V> min_pair;
+
+  if (current == nullptr) {
+      return &current; //min would have to be current.
+  }
+
+  else if {
+    LinkedBSTNode<K, V>* store_temp = current;
+    current = current->getLeft(); //if there is a left node. what to do if left doesn't exist?
+
+      if (store_temp->getKey() < current->getKey()){ //if the left child node is less, return the child.
+        pair<K, V> min_pair =  &store_temp;
+        return min_pair;
+      }
+
+      else{
+        pair<K, V> min_pair =  &current;
+        return min_pair;
+        }
+    }
+
+  else{
+    LinkedBSTNode<K, V>* store_temp = current;
+    current = current->getRight();
+
+        if (store_temp->getKey() < current->getKey()){ //if the left child node is less, return the child.
+          pair<K, V> min_pair =  &store_temp;
+          return min_pair;
+        }
+
+        else{
+          pair<K, V> min_pair =  &current;
+          return min_pair;
+          }
+
+
+  }
+
+return min_pair;
+
 }
 
 template <typename K, typename V>

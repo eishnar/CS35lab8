@@ -55,7 +55,8 @@ void LinkedBST<K, V>::update(K key, V value) { //VOID
 
 
 template <typename K, typename V>
-V LinkedBST<K, V>::get(K key) { //ALREADY IMPLEMENTED
+V LinkedBST<K, V>::get(K key) {
+  //ALREADY IMPLEMENTED
     return this->findInSubtree(this->root, key); //only two parameters
 
 }
