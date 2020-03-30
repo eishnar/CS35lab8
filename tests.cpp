@@ -154,6 +154,7 @@ TEST(exampleGetItems) {
   myitems.push_back("9");
 
   vector<pair<int, string> > items = bst->getItems();
+
   CHECK_EQUAL(myitems.size(), items.size());
   if(myitems.size() == items.size()) {
     for(int i=0; i<myitems.size(); i++) {
@@ -296,7 +297,10 @@ TEST(exampleGetKeys){
   LinkedBST<int, string>* bst = makeExampleBST();
 
   vector<K> all_keys;
-  all_keys = <1,2,3,5,6,7,8,9>;
+  all_keys.push_back(1);
+  all_keys.push_back(2);
+  all_keys.push_back(3);
+
 
   CHECK_EQUAL(all_keys, bst->getKeys())
 
@@ -325,7 +329,6 @@ TEST(exampleInOrderTraversal){
   }
 
   delete bst;
-
 
 }
 

@@ -24,8 +24,8 @@ using std::vector;
 
 template <typename K, typename V> LinkedBST<K, V>::LinkedBST() {
 
-    this->size = 0;
-    this->root = nullptr; //only two data members in the constructor. rest will be pointers to link stuff.
+  this->size = 0;
+  this->root = nullptr; //only two data members in the constructor. rest will be pointers to link stuff.
 
 }
 
@@ -35,28 +35,32 @@ template <typename K, typename V> LinkedBST<K, V>::~LinkedBST() {
 
 template <typename K, typename V>
 int LinkedBST<K, V>::getSize() {
+
   return this->size;
 }
 
 template <typename K, typename V>
 bool LinkedBST<K, V>::isEmpty() {
+
   return(this->size==0);
 }
 
 template <typename K, typename V>
-void LinkedBST<K, V>::insert(K key, V value) { //VOID
-    insertInSubtree(this->root, key, value);
+void LinkedBST<K, V>::insert(K key, V value) {
+
+    insertInSubtree(this->root, key, value); //three parameters for insert.
 }
 
 template <typename K, typename V>
-void LinkedBST<K, V>::update(K key, V value) { //VOID
-    updateInSubtree(this->root, key, value); // three parameters
+void LinkedBST<K, V>::update(K key, V value) {
+
+    updateInSubtree(this->root, key, value); // three parameters for update.
 }
 
 
 template <typename K, typename V>
 V LinkedBST<K, V>::get(K key) {
-  //ALREADY IMPLEMENTED
+
     return this->findInSubtree(this->root, key); //only two parameters
 
 }
@@ -94,14 +98,14 @@ template <typename K, typename V>
 K LinkedBST<K, V>::getMaxKey() {
 
   pair<K, V> max_pair = getMaxInSubtree(this->root);
-  return max_pair.getKey();
+  return max_pair.first;
 }
 
 template <typename K, typename V>
 K LinkedBST<K, V>::getMinKey() {
 
-  pair<K, V> min_pair = getMaxInSubtree(this->root);
-  return min_pair.getKey();
+  pair<K, V> min_pair = getMinInSubtree(this->root); //subtree that starts at root is whole tree.
+  return min_pair.first;
 }
 
 template <typename K, typename V>

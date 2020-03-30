@@ -12,7 +12,7 @@
 
 #include "adts/list.h"
 #include "adts/stlList.h"
-#include "LinkedBSTNode.h" //where getleft and getright are.
+//#include "LinkedBSTNode.h" //where getleft and getright are.
 
 using std::runtime_error;
 
@@ -51,62 +51,62 @@ bool LinkedBST<K, V>::containsInSubtree(LinkedBSTNode<K, V>* current, K key) {
   }
 
   else if (key < current->getKey()) {
-    current = current->getLeft(); //change pointer of current to check the value to the left of the root.
-    if (key == current){
-      return true;
-    }
-    else{
-      return false;
-    }
+    return this->containsInSubtree(current->getLeft(), key); //change pointer of current to check the value to the left of the root.
+    // current = current->getLeft();
+    // if (key == current){
+    //   return true;
+    // }
+    // else{
+    //   return false;
+    // }
   }
 
   else if (key > current->getKey()) {
-    current = current->getRight(); //change pointer of current to check the value to the left of the root.
-    if (key == current){
-      return true;
-    }
-    else{
-      return false;
-    }
+    return this->containsInSubtree(current->getRight(), key); //change pointer of current to check the value to the left of the root.
 
+  //   current = current->getRight(); //change pointer of current to check the value to the left of the root.
+  //   if (key == current){
+  //     return true;
+  //   }
+  //   else{
+  //     return false;
+  //   }
+  //
   }
 }
 
-template <typename K, typename V>
-void LinkedBST<K, V>::updateInSubtree(LinkedBSTNode<K, V>* current, K key,
+template <typename K, typename V> void LinkedBST<K, V>::updateInSubtree(LinkedBSTNode<K, V>* current, K key,
                                       V value) {
 
   //if tree has no contents, can't update anything
   if (current == nullptr) {
       throw runtime_error("Key not found: LinkedBST<K,V>::updateInSubtree");
   }
+
   //if the root is the key you are looking for, the subtree contains the root, thus it's true
   else if (key == current->getKey()) {
     current->setValue(value); //update they key's value since you found it.
   }
 
   else if (key < current->getKey()) {
-    current = current->getLeft(); //change pointer of current to check the value to the right of the root.
-    if (key == current){
-      current->setValue(value); //update they key's value since you found it.
-    }
-    else{
-      runtime_error("Key not found: LinkedBST<K,V>::updateInSubtree");
-      //ASK DURING OH. do we only check directly below. to the left and to the right??
-    }
+    return this->updateInSubtree(current->getLeft(), key); //change pointer of current to check the value to the left of the root.
+
   }
 
   else if (key > current->getKey()) {
-    current = current->getRight(); //change pointer of current to check the value to the right of the root.
-    if (key == current){
-      current->setValue(value); //update they key's value since you found it.
-    }
-    else{
-      runtime_error("Key not found: LinkedBST<K,V>::updateInSubtree");
-      //ASK DURING OH. do we assume user provides a key that exists in the tree?
-    }
 
-  }
+    return this->updateInSubtree(current->getRight(), key); //change pointer of current to check the value to the right of the root.
+    //keep going on the right hand side untl you get to a child of a leaf that's a nullptr.
+
+  //   current = current->getRight();
+  //   if (key == current){
+  //     current->setValue(value); //update they key's value since you found it.
+  //   }
+  //   else{
+  //     runtime_error("Key not found: LinkedBST<K,V>::updateInSubtree");
+  //   }
+  //
+  // }
 
 }
 
@@ -130,78 +130,78 @@ int LinkedBST<K, V>::getHeightInSubtree(LinkedBSTNode<K, V>* current) {
 template <typename K, typename V>
 pair<K, V> LinkedBST<K, V>::getMinInSubtree(LinkedBSTNode<K, V>* current) {
 
-// pair<K, V> min_pair;
+  pair<K, V> min_pair;
 
-  if (current == nullptr) {
-      return &current; //min would have to be current.
+  //we want to stop before we get to a childless leaf/ an empty box.
+  //we want to stop there and grab the value of the left most leaf.
+
+  if (current->getLeft() == nullptr) {
+
+      K key = current->getKey();
+      V value = current->getValue();
+      min_pair = pair<K,V> (key,value);
+      return min_pair;
+
   }
 
   else if {
-    LinkedBSTNode<K, V>* store_temp = current;
-    current = current->getLeft(); //if there is a left node. what to do if left doesn't exist?
-
-      if (store_temp->getKey() < current->getKey()){ //if the left child node is less, return the child.
-        pair<K, V> min_pair =  &store_temp;
-        return min_pair;
-      }
-
-      else{
-        pair<K, V> min_pair =  &current;
-        return min_pair;
-        }
-    }
-
-  else{
-    LinkedBSTNode<K, V>* store_temp = current;
-    current = current->getRight();
-
-        if (store_temp->getKey() < current->getKey()){ //if the left child node is less, return the child.
-          pair<K, V> min_pair =  &store_temp;
-          return min_pair;
-        }
-
-        else{
-          pair<K, V> min_pair =  &current;
-          return min_pair;
-          }
-
-
+    return getMinInSubtree(current->getLeft()); //keep going until you have left left most
   }
-
-return min_pair;
 
 }
 
 template <typename K, typename V>
 pair<K, V> LinkedBST<K, V>::getMaxInSubtree(LinkedBSTNode<K, V>* current) {
-    throw runtime_error("Not yet implemented: LinkedBST<K,V>::getMaxInSubtree");
-}
+
+  pair<K, V> max_pair;
+
+  //we want to stop before we get to a childless leaf/ an empty box, thus we check if the next thing will be nullptr.
+  //we want to stop there and grab the value of the rightmost leaf.
+  if (current->getRight() == nullptr) {
+
+      K key = current->getKey();
+      V value = current->getValue();
+      max_pair = pair<K,V> (key,value);
+      return max_pair;
+
+  }
+
+  else if {
+    return getMaxInSubtree(current->getRight()); //keep going until you have right rightmost
+  }
+
+
+  }
 
 template <typename K, typename V>
 LinkedBSTNode<K, V>*
 LinkedBST<K, V>::insertInSubtree(LinkedBSTNode<K, V>* current, K key, V value) {
 
-  LinkedBSTNode<K, V> node_toinsert = <key, value>; //creates a node with the parameters.
+  // LinkedBSTNode<K, V> node_toinsert = <key, value>; //creates a node with the parameters.
+  //
+  //
+  // if (current == nullptr) { //autmoatically knows to compare the value? and not the key
+  //   if (current < key){
+  //       current->setLeft(node_toinsert*);
+  //   }
+  //   else{
+  //       current->setRight(node_toinsert*);
+  //   }
+  // }
+  //
+  // else if (key < current ){
+  //   current->setLeft(node_toinsert*);
+  // }
+  //
+  // else if (key > current){
+  //   current->setRight(node_toinsert*);
+  // }
+  //
+  // Return node_toinsert*;
 
-
-  if (current == nullptr) { //autmoatically knows to compare the value? and not the key
-    if (current < key){
-        current->setLeft(node_toinsert*);
-    }
-    else{
-        current->setRight(node_toinsert*);
-    }
-  }
-
-  else if (key < current ){
-    current->setLeft(node_toinsert*);
-  }
-
-  else if (key > current){
-    current->setRight(node_toinsert*);
-  }
-
-  Return node_toinsert*;
+  throw runtime_error(
+      "Not yet implemented: LinkedBST<K,V>::removeFromSubtree");
+}
 
 template <typename K, typename V>
 LinkedBSTNode<K, V>*
