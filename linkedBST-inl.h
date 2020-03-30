@@ -30,7 +30,7 @@ template <typename K, typename V> LinkedBST<K, V>::LinkedBST() {
 }
 
 template <typename K, typename V> LinkedBST<K, V>::~LinkedBST() {
-    // To do: implement the destructor
+    delete root; 
 }
 
 template <typename K, typename V>
@@ -72,7 +72,7 @@ bool LinkedBST<K, V>::contains(K key) {
 }
 
 template <typename K, typename V>
-void LinkedBST<K, V>::remove(K key) { //VOID
+void LinkedBST<K, V>::remove(K key) { 
     removeFromSubtree(this->root, key); //only two parameters
 }
 
@@ -80,6 +80,7 @@ void LinkedBST<K, V>::remove(K key) { //VOID
 
 template <typename K, typename V> //ASK ABOUT THIS.
 vector<K> LinkedBST<K, V>::getKeys() {
+  
   return getKeys();
 }
 
@@ -91,7 +92,7 @@ vector<pair<K, V>> LinkedBST<K, V>::getItems() { //already implemented.
 template <typename K, typename V>
 int LinkedBST<K, V>::getHeight() {
 
-    return this->getHeightInSubtree(this->root); //ASK IF NEED TO RECURSE UNTIL A CERTIAN POINT.
+    return this->getHeightInSubtree(this->root);
 }
 
 template <typename K, typename V>
