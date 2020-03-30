@@ -83,12 +83,15 @@ template <typename K, typename V> //ASK ABOUT THIS.
 vector<K> LinkedBST<K, V>::getKeys() {
   
   vector<K> keys; 
-  List<pair<K, V>>* p2; //empty right now
+  List<pair<K, V>>* p2 = new STList<pair<K, V>>; 
+  //empty right now
+  //allocate memory 
   
   buildInOrderTraversal(this->root, p2); //p2 is now updated, since this funciton is called. 
   
   for(int i = 0; i< p2->getSize(); i++) {
-    p2.
+    K temp_key = p2->get(i).first; 
+    vector.push_back(temp_key); 
   }
     
   return keys;
