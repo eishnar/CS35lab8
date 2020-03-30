@@ -79,9 +79,19 @@ void LinkedBST<K, V>::remove(K key) {
 
 
 template <typename K, typename V> //ASK ABOUT THIS.
+
 vector<K> LinkedBST<K, V>::getKeys() {
   
-  return getKeys();
+  vector<K> keys; 
+  List<pair<K, V>>* p2; //empty right now
+  
+  buildInOrderTraversal(this->root, p2); //p2 is now updated, since this funciton is called. 
+  
+  for(int i = 0; i< p2->getSize(); i++) {
+    p2.
+  }
+    
+  return keys;
 }
 
 template <typename K, typename V>
