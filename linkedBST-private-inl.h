@@ -110,8 +110,7 @@ template <typename K, typename V> void LinkedBST<K, V>::updateInSubtree(LinkedBS
 
 }
 
-template <typename K, typename V>
-int LinkedBST<K, V>::getHeightInSubtree(LinkedBSTNode<K, V>* current) {
+template <typename K, typename V> int LinkedBST<K, V>::getHeightInSubtree(LinkedBSTNode<K, V>* current) {
     if (current == nullptr) {
         return -1;
     }
@@ -144,7 +143,7 @@ pair<K, V> LinkedBST<K, V>::getMinInSubtree(LinkedBSTNode<K, V>* current) {
 
   }
 
-  else if {
+  else {
     return getMinInSubtree(current->getLeft()); //keep going until you have left left most
   }
 
@@ -166,7 +165,7 @@ pair<K, V> LinkedBST<K, V>::getMaxInSubtree(LinkedBSTNode<K, V>* current) {
 
   }
 
-  else if {
+  else {
     return getMaxInSubtree(current->getRight()); //keep going until you have right rightmost
   }
 
@@ -180,7 +179,7 @@ LinkedBST<K, V>::insertInSubtree(LinkedBSTNode<K, V>* current, K key, V value) {
   // LinkedBSTNode<K, V> node_toinsert = <key, value>; //creates a node with the parameters.
   //
   //
-  // if (current == nullptr) { //autmoatically knows to compare the value? and not the key
+  // if (current->getLeft() == nullptr) && (current->getRight() == nullptr) { //the base case? 
   //   if (current < key){
   //       current->setLeft(node_toinsert*);
   //   }
@@ -189,11 +188,12 @@ LinkedBST<K, V>::insertInSubtree(LinkedBSTNode<K, V>* current, K key, V value) {
   //   }
   // }
   //
-  // else if (key < current ){
+  // else if (key < current->getKey()){
+  //   insertInSubtree(current->getLeft(), key, value); //need to call recursively?
   //   current->setLeft(node_toinsert*);
   // }
   //
-  // else if (key > current){
+  // else if (key > current->getKey()){
   //   current->setRight(node_toinsert*);
   // }
   //
@@ -206,8 +206,20 @@ LinkedBST<K, V>::insertInSubtree(LinkedBSTNode<K, V>* current, K key, V value) {
 template <typename K, typename V>
 LinkedBSTNode<K, V>*
 LinkedBST<K, V>::removeFromSubtree(LinkedBSTNode<K, V>* current, K key) {
-    throw runtime_error(
-        "Not yet implemented: LinkedBST<K,V>::removeFromSubtree");
+  
+  if (current = nullptr){
+      throw runtime_error("key does not exist in BST");
+  }
+  
+  else if (key == current->getKey()){
+    
+    
+    current = current->getLeft(); //just replace current to delete?
+    current = current->getRight(); //just replace current to delete?
+    current = nullptr; 
+    
+    //or delete &current; 
+  }
 }
 
 template <typename K, typename V>
