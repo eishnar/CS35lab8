@@ -12,6 +12,7 @@
 
 #include "adts/list.h"
 #include "adts/stlList.h"
+#include "LinkedBSTNode.h" //where getleft and getright are.
 
 using std::runtime_error;
 
@@ -179,8 +180,28 @@ pair<K, V> LinkedBST<K, V>::getMaxInSubtree(LinkedBSTNode<K, V>* current) {
 template <typename K, typename V>
 LinkedBSTNode<K, V>*
 LinkedBST<K, V>::insertInSubtree(LinkedBSTNode<K, V>* current, K key, V value) {
-    throw runtime_error("Not yet implemented: LinkedBST<K,V>::insertInSubtree");
-}
+
+  LinkedBSTNode<K, V> node_toinsert = <key, value>; //creates a node with the parameters.
+
+
+  if (current == nullptr) { //autmoatically knows to compare the value? and not the key
+    if (current < key){
+        current->setLeft(node_toinsert*);
+    }
+    else{
+        current->setRight(node_toinsert*);
+    }
+  }
+
+  else if (key < current ){
+    current->setLeft(node_toinsert*);
+  }
+
+  else if (key > current){
+    current->setRight(node_toinsert*);
+  }
+
+  Return node_toinsert*;
 
 template <typename K, typename V>
 LinkedBSTNode<K, V>*
@@ -214,11 +235,14 @@ void LinkedBST<K, V>::buildPostOrderTraversal(LinkedBSTNode<K, V>* current,
 
 template <typename K, typename V>
 int LinkedBST<K, V>::countNodes(LinkedBSTNode<K, V>* current) {
+
+  //what i would have done: create an int variable called total. create a left and right.
+
     if (current == nullptr) {
         return 0;
     } else {
-        return this->countNodes(current->getLeft()) +
-               this->countNodes(current->getRight()) + 1;
+        return this->countNodes(current->getLeft()) + //what if a parent only had a right child, but not a lef
+               this->countNodes(current->getRight()) + 1; //how does it know when to stop? how does it know when it hits a leaf?
     }
 }
 
