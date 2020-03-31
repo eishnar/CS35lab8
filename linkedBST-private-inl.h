@@ -227,27 +227,30 @@ LinkedBSTNode<K, V>* LinkedBST<K, V>::removeFromSubtree(LinkedBSTNode<K, V>* cur
       delete current;  //gets rid of 13
       return nullptr; //goes back to 12 - DRAW STACK to see where it returns nullptr to. 
     
-    if parent with 2 kids. 
+    
+    if parent with 1 kid. 
+      
+      //less
+    return current->getLeft();
+    
+      //more
+    return current->getRight();
+
+    
+    if parent with 2 kids. //YIKES!!!!!!!
+   
       (current->getLeft() == nullptr) || (current->getRight() == nullptr);
     
       //max of left. min of right. 
     
       pair = minofsubtree(current->getRight()); 
-      updateinsubtree(current, pair.first, pair.second);
-      delete current; 
-    
-      return()
-    
-    if parent with 1 kid. 
-      return current->getLeft();
-      return current->getRight();
-
-    
-    current = current->getLeft(); //just replace current to delete?
-   
-    current = current->getRight(); //just replace current to delete?
-    
-    current = nullptr; 
+      updateinsubtree(current, current->getKey(), pair.second); //update != remove. still needt to nix 35. value of 24 is now gone. 
+      
+      current = removeFromSubtree(current, 35))   //now we nix 35. but use pair.first. 
+      current->key = (//35) pair.first;  //check if setKey method. 
+      
+  return current;         
+  
     
     //or delete &current; 
   }
