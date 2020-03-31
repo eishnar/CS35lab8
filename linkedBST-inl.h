@@ -30,7 +30,7 @@ template <typename K, typename V> LinkedBST<K, V>::LinkedBST() {
 }
 
 template <typename K, typename V> LinkedBST<K, V>::~LinkedBST() {
-    delete root; 
+    delete root;
 }
 
 template <typename K, typename V>
@@ -72,7 +72,7 @@ bool LinkedBST<K, V>::contains(K key) {
 }
 
 template <typename K, typename V>
-void LinkedBST<K, V>::remove(K key) { 
+void LinkedBST<K, V>::remove(K key) {
     removeFromSubtree(this->root, key); //only two parameters
 }
 
@@ -81,20 +81,19 @@ void LinkedBST<K, V>::remove(K key) {
 template <typename K, typename V> //ASK ABOUT THIS.
 
 vector<K> LinkedBST<K, V>::getKeys() {
-  
-  vector<K> keys; 
-  List<pair<K, V>>* p2 = new STList<pair<K, V>>; 
-  //empty right now
-  //allocate memory 
-  
-  buildInOrderTraversal(this->root, p2); //p2 is now updated, since this funciton is called. 
-  
-  for(int i = 0; i< p2->getSize(); i++) {
-    K temp_key = p2->get(i).first; 
-    vector.push_back(temp_key); 
+
+  vector<K> keys;
+  List<pair<K, V>>* list_param = new stlList<pair<K, V>>; //empty right now, just allocated allocate memory
+
+  buildInOrderTraversal(this->root, list_param); //List<pair<K, V>>* list is second parameter.
+
+  //list_param is now updated, since this funciton is called. it is no longer empty.
+  for(int i = 0; i< list_param->getSize(); i++) {
+    K temp_key = list_param->get(i).first; //grab the key from the first item in each pair in the list.
+    keys.push_back(temp_key);
   }
-    
-  return keys;
+
+  return keys; //this return type matches the one the function, getKeys, returns.
 }
 
 template <typename K, typename V>
