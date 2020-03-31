@@ -89,13 +89,12 @@ template <typename K, typename V> void LinkedBST<K, V>::updateInSubtree(LinkedBS
   }
 
   else if (key < current->getKey()) {
-    return this->updateInSubtree(current->getLeft(), key); //change pointer of current to check the value to the left of the root.
-
+    this->updateInSubtree(current->getLeft(), key); //change pointer of current to check the value to the left of the root.
   }
 
   else if (key > current->getKey()) {
-
-    return this->updateInSubtree(current->getRight(), key); //change pointer of current to check the value to the right of the root.
+    this->updateInSubtree(current->getRight(), key); //change pointer of current to check the value to the right of the root.
+    
     //keep going on the right hand side untl you get to a child of a leaf that's a nullptr.
 
   //   current = current->getRight();
@@ -204,18 +203,50 @@ LinkedBST<K, V>::insertInSubtree(LinkedBSTNode<K, V>* current, K key, V value) {
 }
 
 template <typename K, typename V>
-LinkedBSTNode<K, V>*
-LinkedBST<K, V>::removeFromSubtree(LinkedBSTNode<K, V>* current, K key) {
+LinkedBSTNode<K, V>* LinkedBST<K, V>::removeFromSubtree(LinkedBSTNode<K, V>* current, K key) {
   
   if (current = nullptr){
       throw runtime_error("key does not exist in BST");
   }
   
-  else if (key == current->getKey()){
+  
+  else if (key < current->getKey()){
+    current->setLeft(removeFromSubtree(current->getLeft(), key)); //DO NOT RETURN. why: want to look at other subtree exclusively. 
+  }
+  
+  
+  else if (key > current->getKey()){
+    current->setRight(removeFromSubtree(current->getRight(), key)); //13 returns nullptr.
+    //DO NOT RETURN. why: want to look at other subtree exclusively. 
+  }
     
+    
+  else if (key == current->getKey()){
+    if leaf
+      (current->getLeft() == nullptr) && (current->getRight() == nullptr); 
+      delete current;  //gets rid of 13
+      return nullptr; //goes back to 12 - DRAW STACK to see where it returns nullptr to. 
+    
+    if parent with 2 kids. 
+      (current->getLeft() == nullptr) || (current->getRight() == nullptr);
+    
+      //max of left. min of right. 
+    
+      pair = minofsubtree(current->getRight()); 
+      updateinsubtree(current, pair.first, pair.second);
+      delete current; 
+    
+      return()
+    
+    if parent with 1 kid. 
+      return current->getLeft();
+      return current->getRight();
+
     
     current = current->getLeft(); //just replace current to delete?
+   
     current = current->getRight(); //just replace current to delete?
+    
     current = nullptr; 
     
     //or delete &current; 
