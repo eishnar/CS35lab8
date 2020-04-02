@@ -147,34 +147,31 @@ pair<K, V> LinkedBST<K, V>::getMaxInSubtree(LinkedBSTNode<K, V>* current) {
 }
 
 template <typename K, typename V>
-LinkedBSTNode<K, V>*
-LinkedBST<K, V>::insertInSubtree(LinkedBSTNode<K, V>* current, K key, V value) {
+LinkedBSTNode<K, V>* LinkedBST<K, V>::insertInSubtree(LinkedBSTNode<K, V>* current, K key, V value) {
 
-  // LinkedBSTNode<K, V> node_toinsert = <key, value>; //creates a node with the parameters.
-  //
-  //
-  // if (current->getLeft() == nullptr) && (current->getRight() == nullptr) { //the base case?
-  //   if (current < key){
-  //       current->setLeft(node_toinsert*);
-  //   }
-  //   else{
-  //       current->setRight(node_toinsert*);
-  //   }
-  // }
-  //
-  // else if (key < current->getKey()){
-  //   insertInSubtree(current->getLeft(), key, value); //need to call recursively?
-  //   current->setLeft(node_toinsert*);
-  // }
-  //
-  // else if (key > current->getKey()){
-  //   current->setRight(node_toinsert*);
-  // }
-  //
-  // Return node_toinsert*;
+  LinkedBSTNode<K, V>* node_toinsert = new LinkedBSTNode<K, V>; //creates a node with the parameters.
 
-  throw runtime_error(
-      "Not yet implemented: LinkedBST<K,V>::removeFromSubtree");
+  if (current->getKey == key){
+    throw runtime_error("key already exists in BST");
+  }
+
+  else if (key < current->getKey()){
+    current->setLeft(insertInSubtree(current->getLeft(), key, value);
+  }
+
+  else if (key > current->getKey()){
+    current->setRight(insertInSubtree(current->getLeft(), key, value);
+  }
+
+  //if parent has no kids and you are in the right spot. you are at the bottom of the tree.
+  else if (current->getLeft() == nullptr) && (current->getRight() == nullptr) {
+    if (current < key){
+        return current->setLeft(node_toinsert*);
+    }
+    else{
+        return current->setRight(node_toinsert*);
+    }
+  }
 }
 
 template <typename K, typename V>
@@ -186,35 +183,36 @@ LinkedBSTNode<K, V>* LinkedBST<K, V>::removeFromSubtree(LinkedBSTNode<K, V>* cur
   }
 
   if (key == current->getKey()){
+      this->size = this->size - 1;
 
-      //if key to remove is a leaf:
+      //OPTION 1: if key to remove is a leaf:
       if (current->getLeft() == nullptr) && (current->getRight() == nullptr);{
 
         delete current;  //can simply delete it. //gets rid of 13
         return nullptr; //goes back to 12 - DRAW STACK to see where it returns nullptr to.
       }
 
-   //if parent with 1 child.
-   //in or logic, if one is true, it enters.
-   if (current->getLeft() == nullptr) || (current->getRight() == nullptr);{
+     //OPTION 2: if parent with 1 child.
+     //in or logic, if one is true, it enters.
+       if (current->getLeft() == nullptr) || (current->getRight() == nullptr);{
 
-     LinkedBSTNode<K, V>* child; //need to store store the child
+        LinkedBSTNode<K, V>* child; //need to store store the child
+        //if child is less than key.
+        if (current->getLeft() != nullptr){
+          child = current->getLeft();
+          delete current; //now we can nix the child's parent wihout worrying about losing the child
+          return child;
+        }
 
-    //if child is less than key.
-    if (current->getLeft() != nullptr){
-      child = current->getLeft();
-      delete current; //now we can nix the child's Department
-      return child;
-    }
+        //if child is more
+        else{
+          child = current->getRight();
+          delete current; //now we can nix the child's parent without worrying about losing the child.
+          return child;
+        }
+      }
 
-    //if child is more
-    else{
-      return current->getRight();
-    }
-
-  }
-
-    //if parent with 2 child. //YIKES!!!!!!!
+    //OPTION 3: if parent with 2 child. //YIKES!!!!!!!
     if (current->getLeft() != nullptr) && (current->getRight() != nullptr);{
       pair<K, V> temp_pair;
       temp_pair = getMinInSubtree(current->getRight()); //min of right. <35, "35">
@@ -224,11 +222,11 @@ LinkedBSTNode<K, V>* LinkedBST<K, V>::removeFromSubtree(LinkedBSTNode<K, V>* cur
       //update != remove. still needt to nix 35. value of 24 is now gone.
       current->setKey(temp_pair.first); //now update the key.
 
-      current->setRight(removeFromSubtree(current, temp_pair.first)) //return for removeofSubtree is 36. 
+      current->setRight(removeFromSubtree(current, temp_pair.first)) //return for removeofSubtree is 36.
       //now we nix the minimum in the right subree
       return current;
+        //35 pair.first;  //check if setKey method.
 
-      //35) pair.first;  //check if setKey method.
     }
 
   }
@@ -237,6 +235,7 @@ LinkedBSTNode<K, V>* LinkedBST<K, V>::removeFromSubtree(LinkedBSTNode<K, V>* cur
   else if (key < current->getKey()){
     current->setLeft(removeFromSubtree(current->getLeft(), key)); //update current.
     //DO NOT RETURN because want to look at other subtree exclusively.
+    //return for remove is LinkedBSTNode<K, V>*, which is passed into setLeft(takes in pointer).
   }
 
   //search for the key we want to remove. if more, go right.
@@ -249,6 +248,14 @@ LinkedBSTNode<K, V>* LinkedBST<K, V>::removeFromSubtree(LinkedBSTNode<K, V>* cur
 template <typename K, typename V>
 void LinkedBST<K, V>::deleteSubtree(LinkedBSTNode<K, V>* current) {
     throw runtime_error("Not yet implemented: LinkedBST<K,V>::deleteSubtree");
+
+    if (current == nullptr){
+      throw runtime_error("BST is empty, nothing to delete);
+    }
+
+    while((current->getLeft() != nullptr) && (current->getRight() != nullptr){
+      deleteSubtree(removeFromSubtree(current, current->getKey()));
+    }
 }
 
 template <typename K, typename V>

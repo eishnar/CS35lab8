@@ -49,6 +49,7 @@ template <typename K, typename V>
 void LinkedBST<K, V>::insert(K key, V value) {
 
     insertInSubtree(this->root, key, value); //three parameters for insert.
+    this->size = this->size + 1;
 }
 
 template <typename K, typename V>
@@ -74,6 +75,7 @@ bool LinkedBST<K, V>::contains(K key) {
 template <typename K, typename V>
 void LinkedBST<K, V>::remove(K key) {
     removeFromSubtree(this->root, key); //only two parameters
+    this->size = this->size - 1;
 }
 
 
