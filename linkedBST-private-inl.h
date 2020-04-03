@@ -254,14 +254,46 @@ void LinkedBST<K, V>::deleteSubtree(LinkedBSTNode<K, V>* current) {
     }
 
     while((current->getLeft() != nullptr) && (current->getRight() != nullptr){
+
       deleteSubtree(removeFromSubtree(current, current->getKey()));
+
+      //delete my child and then delte myself ONCE i know longer have children.
+
     }
 }
 
 template <typename K, typename V>
 void LinkedBST<K, V>::buildPreOrderTraversal(LinkedBSTNode<K, V>* current,
                                              List<pair<K, V>>* list) {
-    throw runtime_error("Not yet implemented: LinkedBST<K,V>::buildPreOrder");
+
+    if (current == nullptr){
+      return ;
+    }
+    //
+    // else{
+    //   list->insertFirst(current); //mark as visited.
+    //
+    //   list->insertFirst(current->getLeft());
+    //   //do all of left of root.
+    //
+
+    //while = continue going to left in same funciton.
+      // while (current->getLeft() != nullptr) && (current->getRight() != nullptr){
+      //     buildPreOrderTraversal(current->getLeft(), list);
+      // }
+    //
+    //
+    //     list->insertFirst(current->getLeft());
+    //     //do all of right of root.
+    // }
+
+    list->insertFirst(current); //add F to list. now add B.
+
+    buildPreOrderTraversal(current->getLeft(), list);
+    buildPreOrderTraversal(current->getRight(), list);
+
+    // current = current->getLeft();
+
 }
 
 template <typename K, typename V>

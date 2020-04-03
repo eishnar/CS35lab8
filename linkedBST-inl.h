@@ -127,8 +127,14 @@ template <typename K, typename V>
 vector<pair<K, V>> LinkedBST<K, V>::traversePreOrder() {
     //  return buildPreOrderTraversal(this->root, somelist);
 
-
     vector<pair<K,V>> pre_traversal;
+
+    if (this->root != nullptr) {
+        STLQueue<LinkedBSTNode<K,V>*> search_queue;
+        search_queue.enqueue(this->root);
+
+    while (search_queue.getSize() > 0) {
+    }
 
     return pre_traversal;
   }
