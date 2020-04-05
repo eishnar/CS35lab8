@@ -247,65 +247,80 @@ LinkedBSTNode<K, V>* LinkedBST<K, V>::removeFromSubtree(LinkedBSTNode<K, V>* cur
 
 template <typename K, typename V>
 void LinkedBST<K, V>::deleteSubtree(LinkedBSTNode<K, V>* current) {
-    throw runtime_error("Not yet implemented: LinkedBST<K,V>::deleteSubtree");
+
+    //throw runtime_error("Not yet implemented: LinkedBST<K,V>::deleteSubtree");
 
     if (current == nullptr){
-      throw runtime_error("BST is empty, nothing to delete);
+      throw runtime_error("BST is empty, nothing to delete");
     }
 
-    while((current->getLeft() != nullptr) && (current->getRight() != nullptr){
+    //delete my child and then delte myself ONCE i no longer have children.
+    else if ((current->getLeft() == nullptr) && (current->getRight() == nullptr)){
+      delete current->getLeft(); //use g as example. don't need to do this. 
+      delete current->getRight();
+      delete current;
+      return ;
+    }
 
-      deleteSubtree(removeFromSubtree(current, current->getKey()));
-
-      //delete my child and then delte myself ONCE i know longer have children.
+    else{
+      deleteSubtree(current->getLeft());
+      deleteSubtree(current->getRight());
 
     }
+    //
+    // while((current->getLeft() != nullptr) && (current->getRight() != nullptr){
+    //
+    //   deleteSubtree(removeFromSubtree(current, current->getKey()));
+    //
+    // }
 }
 
 template <typename K, typename V>
 void LinkedBST<K, V>::buildPreOrderTraversal(LinkedBSTNode<K, V>* current,
                                              List<pair<K, V>>* list) {
 
-    if (current == nullptr){
-      return ;
+    if (current == nullptr){ //check if we have hit child of a leaf.
+      return ; //we don't want to do anything. you don't want to add an empty node to the list.
     }
-    //
-    // else{
-    //   list->insertFirst(current); //mark as visited.
-    //
-    //   list->insertFirst(current->getLeft());
-    //   //do all of left of root.
-    //
 
-    //while = continue going to left in same funciton.
-      // while (current->getLeft() != nullptr) && (current->getRight() != nullptr){
-      //     buildPreOrderTraversal(current->getLeft(), list);
-      // }
-    //
-    //
-    //     list->insertFirst(current->getLeft());
-    //     //do all of right of root.
-    // }
-
-    list->insertFirst(current); //add F to list. now add B.
+    list->insertFirst(current); //traverse to current. then visit.
+    //add F to list. now add B.
 
     buildPreOrderTraversal(current->getLeft(), list);
     buildPreOrderTraversal(current->getRight(), list);
 
-    // current = current->getLeft();
 
 }
 
 template <typename K, typename V>
 void LinkedBST<K, V>::buildInOrderTraversal(LinkedBSTNode<K, V>* current,
                                             List<pair<K, V>>* list) {
-    throw runtime_error("Not yet implemented: LinkedBST<K,V>::buildInOrder");
+
+    if (current == nullptr){ //check if we have hit child of a leaf.
+      return ; //we don't want to do anything. you don't want to add an empty node to the list.
+    }
+
+
+    buildPreOrderTraversal(current->getLeft(), list); //add  A to list.
+    list->insertFirst(current); //add F to list.
+    buildPreOrderTraversal(current->getRight(), list);
 }
 
 template <typename K, typename V>
 void LinkedBST<K, V>::buildPostOrderTraversal(LinkedBSTNode<K, V>* current,
                                               List<pair<K, V>>* list) {
-    throw runtime_error("Not yet implemented: LinkedBST<K,V>::buildPostOrder");
+
+    if (current == nullptr){
+      return ; //we don't want to do anything. you don't want to add an empty node to the list.
+    }
+
+
+    buildPreOrderTraversal(current->getLeft(), list); //add  A to list.
+    buildPreOrderTraversal(current->getRight(), list);
+
+    list->insertFirst(current); //add F to list.
+
+
 }
 
 template <typename K, typename V>

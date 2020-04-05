@@ -7,4 +7,13 @@
 
 # TODO: write the answer here.
 #remove this after including your solution
-: \vspace{1in}
+
+          20
+    12         30
+8    14      27   33
+      15   22 28    35
+
+
+#the subtree used in this rotation was rooted at 27 (with immediate children 22,30).
+#Thereby, the children of 22 and 30 were also affected. The root 27 was updated to become 30 and everything was shifted
+#accordingly
