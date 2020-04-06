@@ -240,6 +240,8 @@ TEST(examplePostOrderTraversal) {
     expected.push_back(pair<int, string>(9, "9"));
     expected.push_back(pair<int, string>(7, "7"));
     expected.push_back(pair<int, string>(6, "6"));
+
+
     REQUIRE CHECK_EQUAL(expected.size(), traversal.size());
     for (int i = 0; i < expected.size(); i++) {
         CHECK_EQUAL(expected[i].first, traversal[i].first);
@@ -272,6 +274,7 @@ TEST(exampleLevelOrderTraversal) {
 
 //test LinkedBST<K,V>::contains
 TEST(exampleContains){
+
   LinkedBST<int, string>* bst = makeExampleBST();
 
   CHECK_EQUAL(true, bst->contains(9));
@@ -279,13 +282,13 @@ TEST(exampleContains){
 
   //insert a new key value pair and
   bst->insert(-4, "-4");
-  CHECK_EQUAL(8, bst->getHeight());
+  CHECK_EQUAL(8, bst->getSize());
   bst->checkInvariants();
   CHECK_EQUAL(true, bst->contains(-4));
 
   //remove a key value pair. then check contains.
   bst->remove(3);
-  CHECK_EQUAL(7, bst->getHeight());
+  CHECK_EQUAL(7, bst->getSize());
   bst->checkInvariants();
   CHECK_EQUAL(false, bst->contains(3));
 
@@ -297,7 +300,7 @@ TEST(exampleContains){
 TEST(exampleGetKeys){
 
   LinkedBST<int, string>* bst = makeExampleBST();
-
+  //
   // vector<int> all_keys;
   // all_keys.push_back(1);
   // all_keys.push_back(2);
@@ -305,8 +308,9 @@ TEST(exampleGetKeys){
   //
   // CHECK_EQUAL(all_keys, bst->getKeys());
 
-   //need to ask charlie if we can assume they are al ints.
-  //how to sucessflly get retun from getKeys, which is vector <K>
+  //TEST ONE BY ONE. 
+  //  need to ask charlie if we can assume they are al ints.
+  // how to sucessflly get retun from getKeys, which is vector <K>
 
   delete bst;
 
@@ -326,6 +330,7 @@ TEST(exampleInOrderTraversal){
   expected.push_back(pair<int, string>(6, "6"));
   expected.push_back(pair<int, string>(7, "7"));
   expected.push_back(pair<int, string>(9, "9"));
+
   REQUIRE CHECK_EQUAL(expected.size(), traversal.size());
   for (int i = 0; i < expected.size(); i++) {
       CHECK_EQUAL(expected[i].first, traversal[i].first);

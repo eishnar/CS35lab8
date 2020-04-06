@@ -140,37 +140,42 @@ vector<pair<K, V>> LinkedBST<K, V>::traversePreOrder() {
 
 template <typename K, typename V> vector<pair<K, V>> LinkedBST<K, V>::traverseInOrder() {
 
-  // vector<pair<K,V>> inorder_traversal; //initliazes the variable we want to return
-  //
-  // List<pair<K, V>>* list_param = new STLList<pair<K, V>>; //empty right now, just allocated allocate memory
-  //
-  // buildInOrderTraversal(this->root, list_param); //List<pair<K, V>>* list is second parameter.
-  //
-  // for(int i = 0; i< list_param->getSize(); i++) {
-  //   K temp_key = list_param->get(i).first; //grab the key from the first item in each pair in the list.
-  //   V temp_value = list_param->get(i).second; //grab the value from the first second in each pair in the list.
-  //
-  //   inorder_traversal.push_back(pair<K, V>(temp_key, temp_value));
-  // }
-  //
-  // return inorder_traversal;
+  vector<pair<K,V>> inorder_traversal; //initliazes the variable we want to return
+  List<pair<K, V>>* list_param = new STLList<pair<K, V>>; //empty right now, just allocated allocate memory
 
-  throw runtime_error(
-      "Problem in BST: Node count doesn't match tree size");
+  buildInOrderTraversal(this->root, list_param); //List<pair<K, V>>* list is second parameter.
+
+  for(int i = 0; i< list_param->getSize(); i++) {
+    K temp_key = list_param->get(i).first; //grab the key from the first item in each pair in the list.
+    V temp_value = list_param->get(i).second; //grab the value from the first second in each pair in the list.
+    inorder_traversal.push_back(pair<K, V>(temp_key, temp_value)); //add them both to the list as a pair item.
+
+  }
+
+  return inorder_traversal;
+
+  // throw runtime_error(
+  //     "Problem in BST: Node count doesn't match tree size");
 }
 
 
 
 
-template <typename K, typename V>
-vector<pair<K, V>> LinkedBST<K, V>::traversePostOrder() {
+template <typename K, typename V> vector<pair<K, V>> LinkedBST<K, V>::traversePostOrder() {
 
-  // vector<pair<K,V>> post_traversal;
-  //
-  // return post_traversal;
+  vector<pair<K,V>> post_traversal;
+  List<pair<K, V>>* list_param = new STLList<pair<K, V>>; //empty right now, just allocated allocate memory
 
-  throw runtime_error(
-      "Problem in BST: Node count doesn't match tree size");
+  buildPostOrderTraversal(this->root, list_param); //List<pair<K, V>>* list is second parameter.
+
+  for(int i = 0; i< list_param->getSize(); i++) {
+    K temp_key = list_param->get(i).first; //grab the key from the first item in each pair in the list.
+    V temp_value = list_param->get(i).second; //grab the value from the first second in each pair in the list.
+    post_traversal.push_back(pair<K, V>(temp_key, temp_value));
+  }
+
+    return post_traversal;
+
 }
 
 
