@@ -4,12 +4,12 @@
  2
 
 # TODO: write the answer here.
-# remove this vertical space once you have added your tree.
+
 
     6
   4   8
 2    7  9
 
 
-#the subtree used in this rotation was rooted at 6 (with children 4, 2, 7). Thereby, it also affected the
-#original root, 8 and its subtrees.
+: the subtree used in this rotation was rooted at 6 (with children 4, 2, 7). Thereby, it also affected the
+: original root, 8 and its subtrees.
