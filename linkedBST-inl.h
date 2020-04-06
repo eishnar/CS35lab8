@@ -26,7 +26,6 @@ template <typename K, typename V> LinkedBST<K, V>::LinkedBST() {
 
   this->size = 0;
   this->root = nullptr; //only two data members in the constructor. rest will be pointers to link stuff.
-
 }
 
 template <typename K, typename V> LinkedBST<K, V>::~LinkedBST() {
@@ -48,12 +47,12 @@ template <typename K, typename V> void LinkedBST<K, V>::insert(K key, V value) {
 
     // LinkedBSTNode<K, V>* node = insertInSubtree(this->root, key, value); //three parameters for insert in private file.
     // this->root = node; //update the root.
-    this->root = insertInSubtree(this->root, key, value); //three parameters for insert.
+    this->root = insertInSubtree(this->root, key, value); //three parameters for insert in the private file.
     this->size += 1;
 }
 
 template <typename K, typename V> void LinkedBST<K, V>::update(K key, V value) {
-    updateInSubtree(this->root, key, value); // three parameters for update.
+    updateInSubtree(this->root, key, value);
 }
 
 
@@ -65,7 +64,7 @@ V LinkedBST<K, V>::get(K key) {
 }
 
 template <typename K, typename V> bool LinkedBST<K, V>::contains(K key) {
-    return containsInSubtree(this->root, key); //only two parameters
+    return containsInSubtree(this->root, key);
 
 }
 
@@ -81,18 +80,18 @@ template <typename K, typename V> void LinkedBST<K, V>::remove(K key) {
 template <typename K, typename V> vector<K> LinkedBST<K, V>::getKeys() {
 throw runtime_error( "Problem in BST: Node count doesn't match tree size");
 
-  // vector<K> keys;
-  // List<pair<K, V>>* list_param = new STLList<pair<K, V>>; //empty right now, just allocated allocate memory
-  //
-  // buildInOrderTraversal(this->root, list_param); //List<pair<K, V>>* list is second parameter.
-  //
-  // //list_param is now updated, since this funciton is called. it is no longer empty.
-  // for(int i = 0; i< list_param->getSize(); i++) {
-  //   K temp_key = list_param->get(i).first; //grab the key from the first item in each pair in the list.
-  //   keys.push_back(temp_key);
-  // }
+  vector<K> keys;
+  List<pair<K, V>>* list_param = new STLList<pair<K, V>>; //empty right now, just allocated allocate memory
 
-  // return keys; //this return type matches the one the function, getKeys, returns.
+  buildInOrderTraversal(this->root, list_param); //List<pair<K, V>>* list is second parameter.
+
+  //list_param is now updated, since this funciton is called. it is no longer empty.
+  for(int i = 0; i< list_param->getSize(); i++) {
+    K temp_key = list_param->get(i).first; //grab the key from the first item in each pair in the list.
+    keys.push_back(temp_key);
+  }
+
+  return keys; //this return type matches the one the function, getKeys, returns.
 }
 
 template <typename K, typename V> vector<pair<K, V>> LinkedBST<K, V>::getItems() { //already implemented.
@@ -140,9 +139,22 @@ vector<pair<K, V>> LinkedBST<K, V>::traversePreOrder() {
 
 
 template <typename K, typename V> vector<pair<K, V>> LinkedBST<K, V>::traverseInOrder() {
-  // vector<pair<K,V>> inorder_traversal;
+
+  // vector<pair<K,V>> inorder_traversal; //initliazes the variable we want to return
+  //
+  // List<pair<K, V>>* list_param = new STLList<pair<K, V>>; //empty right now, just allocated allocate memory
+  //
+  // buildInOrderTraversal(this->root, list_param); //List<pair<K, V>>* list is second parameter.
+  //
+  // for(int i = 0; i< list_param->getSize(); i++) {
+  //   K temp_key = list_param->get(i).first; //grab the key from the first item in each pair in the list.
+  //   V temp_value = list_param->get(i).second; //grab the value from the first second in each pair in the list.
+  //
+  //   inorder_traversal.push_back(pair<K, V>(temp_key, temp_value));
+  // }
   //
   // return inorder_traversal;
+
   throw runtime_error(
       "Problem in BST: Node count doesn't match tree size");
 }

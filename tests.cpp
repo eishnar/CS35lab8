@@ -81,7 +81,7 @@ TEST(exampleBST) {
     // the get method is broken and it's hard to tell which.
     // The upside is that we test both the insert and get functions with this
     // test.
-    
+
     LinkedBST<int, string>* bst = makeExampleBST();
     for (int i = 1; i <= 9; i++) {
         if (i != 5 && i != 8) {
