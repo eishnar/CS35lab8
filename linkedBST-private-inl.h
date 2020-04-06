@@ -56,7 +56,7 @@ template <typename K, typename V> bool LinkedBST<K, V>::containsInSubtree(Linked
   else if (key > current->getKey()) {
     return this->containsInSubtree(current->getRight(), key); //change pointer of current to check the value to the left of the root.
   }
-  return true; 
+  return true;
 }
 
 template <typename K, typename V>
@@ -146,30 +146,30 @@ pair<K, V> LinkedBST<K, V>::getMaxInSubtree(LinkedBSTNode<K, V>* current) {
 template <typename K, typename V>
 LinkedBSTNode<K, V>* LinkedBST<K, V>::insertInSubtree(LinkedBSTNode<K, V>* current, K key, V value) {
 
-  LinkedBSTNode<K, V>* node_toinsert = new LinkedBSTNode<K, V>; //creates a node with the parameters.
-  throw runtime_error(
-      "Problem in BST: Node count doesn't match tree size");
-  // if (current->getKey == key){
-  //   throw runtime_error("key already exists in BST");
-  // }
-  //
-  // else if (key < current->getKey()){
-  //   current->setLeft(insertInSubtree(current->getLeft(), key, value);
-  // }
-  //
-  // else if (key > current->getKey()){
-  //   current->setRight(insertInSubtree(current->getLeft(), key, value);
-  // }
-  //
-  // //if parent has no kids and you are in the right spot. you are at the bottom of the tree.
-  // else if (current->getLeft() == nullptr) && (current->getRight() == nullptr) {
-  //   if (current < key){
-  //       return current->setLeft(node_toinsert*);
-  //   }
-  //   else{
-  //       return current->setRight(node_toinsert*);
-  //   }
-  // }
+  //creates a node with the parameters.
+
+
+  if (current==nullptr){
+    LinkedBSTNode<K, V>* node_toinsert = new LinkedBSTNode<K, V> (key,value);
+    current = node_toinsert;
+    //return current;
+    //this->root = current;
+  }
+
+  else if (key < current->getKey()){
+    current->setLeft(insertInSubtree(current->getLeft(), key, value));
+  }
+
+  else if (key > current->getKey()){
+    current->setRight(insertInSubtree(current->getRight(), key, value));
+  }
+
+  else if (current->getKey() == key){
+    throw runtime_error("key already exists in BST");
+  }
+
+  return current;
+
 }
 
 template <typename K, typename V>

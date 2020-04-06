@@ -81,6 +81,7 @@ TEST(exampleBST) {
     // the get method is broken and it's hard to tell which.
     // The upside is that we test both the insert and get functions with this
     // test.
+    
     LinkedBST<int, string>* bst = makeExampleBST();
     for (int i = 1; i <= 9; i++) {
         if (i != 5 && i != 8) {
@@ -293,19 +294,23 @@ TEST(exampleContains){
 }
 
 //test LinkedBST<K,V>::getKeys
-// TEST(exampleGetKeys){
-//   LinkedBST<int, string>* bst = makeExampleBST();
-//
-//   vector<int> all_keys;
-//   all_keys.push_back(1);
-//   all_keys.push_back(2);
-//   all_keys.push_back(3);
-//
-//   CHECK_EQUAL(all_keys, bst->getKeys()); //need to ask charlie if we can assume they are al ints.
-//
-//   delete bst;
-//
-// }
+TEST(exampleGetKeys){
+
+  LinkedBST<int, string>* bst = makeExampleBST();
+
+  // vector<int> all_keys;
+  // all_keys.push_back(1);
+  // all_keys.push_back(2);
+  // all_keys.push_back(3);
+  //
+  // CHECK_EQUAL(all_keys, bst->getKeys());
+
+   //need to ask charlie if we can assume they are al ints.
+  //how to sucessflly get retun from getKeys, which is vector <K>
+
+  delete bst;
+
+}
 
 //test LinkedBST<K,V>::traverseInOrder
 TEST(exampleInOrderTraversal){

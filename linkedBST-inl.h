@@ -30,7 +30,7 @@ template <typename K, typename V> LinkedBST<K, V>::LinkedBST() {
 }
 
 template <typename K, typename V> LinkedBST<K, V>::~LinkedBST() {
-    delete root;
+    //delete root;
 }
 
 template <typename K, typename V>
@@ -39,24 +39,20 @@ int LinkedBST<K, V>::getSize() {
   return this->size;
 }
 
-template <typename K, typename V>
-bool LinkedBST<K, V>::isEmpty() {
+template <typename K, typename V> bool LinkedBST<K, V>::isEmpty() {
 
   return(this->size==0);
 }
 
-template <typename K, typename V>
+template <typename K, typename V> void LinkedBST<K, V>::insert(K key, V value) {
 
-
-void LinkedBST<K, V>::insert(K key, V value) {
-throw runtime_error( "Problem in BST: Node count doesn't match tree size");
-    // insertInSubtree(this->root, key, value); //three parameters for insert.
-    // this->size = this->size + 1;
+    // LinkedBSTNode<K, V>* node = insertInSubtree(this->root, key, value); //three parameters for insert in private file.
+    // this->root = node; //update the root.
+    this->root = insertInSubtree(this->root, key, value); //three parameters for insert.
+    this->size += 1;
 }
 
-template <typename K, typename V>
-void LinkedBST<K, V>::update(K key, V value) {
-
+template <typename K, typename V> void LinkedBST<K, V>::update(K key, V value) {
     updateInSubtree(this->root, key, value); // three parameters for update.
 }
 
@@ -202,9 +198,9 @@ vector<pair<K, V>> LinkedBST<K, V>::traverseLevelOrder() {
 
 template <typename K, typename V> void LinkedBST<K, V>::checkInvariants() {
     if (this->countNodes(this->root) != this->size) {
-        throw runtime_error(
-            "Problem in BST: Node count doesn't match tree size");
+        throw runtime_error("Problem in BST: Node count doesn't match tree size");
     }
+
     if (this->root != nullptr) {
         // The bounds provided here are arbitrary because the false arguments
         // indicate that they do not apply.  But we need a value of type K to
