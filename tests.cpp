@@ -287,7 +287,7 @@ TEST(exampleContains){
   CHECK_EQUAL(true, bst->contains(-4));
 
   //remove a key value pair. then check contains.
-  bst->remove(3);
+  bst->remove(3); // THIS ONE IS FAILING SINCE I DONT HAVE THE REMOVE IMPLEMENTED YET. ONLY THIS TEST IS FAILING. OTHERWISE, CONTAINTS IS FINE.
   CHECK_EQUAL(7, bst->getSize());
   bst->checkInvariants();
   CHECK_EQUAL(false, bst->contains(3));
@@ -308,7 +308,7 @@ TEST(exampleGetKeys){
   //
   // CHECK_EQUAL(all_keys, bst->getKeys());
 
-  //TEST ONE BY ONE. 
+  //TEST ONE BY ONE.
   //  need to ask charlie if we can assume they are al ints.
   // how to sucessflly get retun from getKeys, which is vector <K>
 

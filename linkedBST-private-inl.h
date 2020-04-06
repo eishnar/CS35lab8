@@ -277,17 +277,19 @@ template <typename K, typename V>
 void LinkedBST<K, V>::buildPreOrderTraversal(LinkedBSTNode<K, V>* current,
                                              List<pair<K, V>>* list) {
 
-     throw runtime_error("Not yet implemented: LinkedBST<K,V>::buildPreOrderTraversal");
-    // if (current == nullptr){ //check if we have hit child of a leaf.
-    //   return ; //we don't want to do anything. you don't want to add an empty node to the list.
-    // }
-    //
-    // list->insertFirst(current); //traverse to current. then visit.
-    // //add F to list. now add B.
-    //
-    // buildPreOrderTraversal(current->getLeft(), list);
-    // buildPreOrderTraversal(current->getRight(), list);
 
+     if (current == nullptr){ //check if we have hit child of a leaf.
+       return ; //we don't want to do anything. you don't want to add an empty node to the list.
+     }
+
+     else{
+       pair<K,V> pair_toinsert; //declaration
+       pair_toinsert = pair<K,V> (current->getKey(), current->getValue()); //assignment
+       list->insertLast(pair_toinsert); //add F to list
+
+       buildPreOrderTraversal(current->getLeft(), list); //add  A to list.
+       buildPreOrderTraversal(current->getRight(), list);
+     }
 
 }
 

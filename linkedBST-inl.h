@@ -119,20 +119,19 @@ K LinkedBST<K, V>::getMinKey() {
 
 template <typename K, typename V>
 vector<pair<K, V>> LinkedBST<K, V>::traversePreOrder() {
-    //  return buildPreOrderTraversal(this->root, somelist);
 
-    // vector<pair<K,V>> pre_traversal;
-    //
-    // if (this->root != nullptr) {
-    //     STLQueue<LinkedBSTNode<K,V>*> search_queue;
-    //     search_queue.enqueue(this->root);
-    //   }
-    //
-    // while (search_queue.getSize() > 0) {
-    // }
-    //
-    // return pre_traversal;
-    throw runtime_error( "Problem in BST: Node count doesn't match tree size");
+  vector<pair<K,V>> pre_traversal;
+  List<pair<K, V>>* list_param = new STLList<pair<K, V>>; //empty right now, just allocated some memory
+
+  buildPreOrderTraversal(this->root, list_param); //List<pair<K, V>>* list is second parameter.
+
+  for(int i = 0; i< list_param->getSize(); i++) {
+    K temp_key = list_param->get(i).first; //grab the key from the first item in each pair in the list.
+    V temp_value = list_param->get(i).second; //grab the value from the first second in each pair in the list.
+    pre_traversal.push_back(pair<K, V>(temp_key, temp_value)); //add them both to the list as a pair item.
+
+  }
+    return pre_traversal;
   }
 
 
@@ -154,8 +153,6 @@ template <typename K, typename V> vector<pair<K, V>> LinkedBST<K, V>::traverseIn
 
   return inorder_traversal;
 
-  // throw runtime_error(
-  //     "Problem in BST: Node count doesn't match tree size");
 }
 
 
