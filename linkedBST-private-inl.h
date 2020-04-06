@@ -300,7 +300,9 @@ void LinkedBST<K, V>::buildInOrderTraversal(LinkedBSTNode<K, V>* current,
     }
 
     buildPreOrderTraversal(current->getLeft(), list); //add  A to list.
-    list.insertFirst(&current); //add F to list.
+    pair<K,V> pair_toinsert; //declaration
+    pair_toinsert = pair<K,V> (current->getKey(), current->getValue()); //assignment
+    list->insertFirst(pair_toinsert); //add F to list.
     buildPreOrderTraversal(current->getRight(), list);
 }
 
