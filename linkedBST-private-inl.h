@@ -177,56 +177,56 @@ LinkedBSTNode<K, V>* LinkedBST<K, V>::removeFromSubtree(LinkedBSTNode<K, V>* cur
   // throw runtime_error(       "Problem in BST: Node count doesn't match tree size");
   // we got beyond a leaf. and the key wasn't found. or the tree is empty.
 
-  if (current == nullptr){
-    throw runtime_error("key does not exist in BST");
-    //return ; or current.
+if (current == nullptr){
+throw runtime_error("key does not exist in BST");
+//return ; or current.
+}
+
+else if (key == current->getKey()){ //WE FOUND THE KEY. WE CAN DO 3 THINGS WITH IT.
+
+  //OPTION 1: if key to remove is a leaf.
+  if ((current->getLeft() == nullptr) && (current->getRight() == nullptr)){
+
+    delete current;  //can simply delete it. //gets rid of 13
+    return nullptr; //goes back to 12 - DRAW STACK to see where it returns nullptr to.
   }
 
-  else if (key == current->getKey()){ //WE FOUND THE KEY. WE CAN DO 3 THINGS WITH IT.
+  //OPTION 2: if parent with 1 child.
+  //in or logic, if one is true, it enters.
+  else if ((current->getLeft() == nullptr) || (current->getRight() == nullptr)){
 
-        //OPTION 1: if key to remove is a leaf.
-        if ((current->getLeft() == nullptr) && (current->getRight() == nullptr)){
+    LinkedBSTNode<K, V>* new_root; //need to  store the child
 
-          delete current;  //can simply delete it. //gets rid of 13
-          return nullptr; //goes back to 12 - DRAW STACK to see where it returns nullptr to.
-        }
+    //if child is less than key.
+    if (current->getLeft() != nullptr){
+      new_root = current->getLeft();
+      delete current; //now we can nix the child's parent wihout worrying about losing the child
+      return new_root; //gets returned to the recursive call of removeFromSubtree.
+    }
 
-        //OPTION 2: if parent with 1 child.
-        //in or logic, if one is true, it enters.
-        else if ((current->getLeft() == nullptr) || (current->getRight() == nullptr)){
-
-          LinkedBSTNode<K, V>* new_root; //need to  store the child
-
-          //if child is less than key.
-          if (current->getLeft() != nullptr){
-            new_root = current->getLeft();
-            delete current; //now we can nix the child's parent wihout worrying about losing the child
-            return new_root; //gets returned to the recursive call of removeFromSubtree.
-          }
-
-          //if child is more
-          else{
-            new_root = current->getRight();
-            delete current; //now we can nix the child's parent without worrying about losing the child.
-            return new_root;
-          }
-        }
+    //if child is more
+    else{
+      new_root = current->getRight();
+      delete current; //now we can nix the child's parent without worrying about losing the child.
+      return new_root;
+    }
+  }
 
 
-        //OPTION 3: if parent with 2 children. //YIKES!!!!!!!
-        //((current->getLeft() != nullptr) && (current->getRight() != nullptr))
-        else{
-          pair<K, V> min_ofright;
-          min_ofright = getMinInSubtree(current->getRight()); //min of right. <35, "35">. store from function call.
-          updateInSubtree(current, current->getKey(), min_ofright.second); //update value with min of right.
+  //OPTION 3: if parent with 2 children. //YIKES!!!!!!!
+  //((current->getLeft() != nullptr) && (current->getRight() != nullptr))
+  else{
+    pair<K, V> min_ofright;
+    min_ofright = getMinInSubtree(current->getRight()); //min of right. <35, "35">. store from function call.
+    updateInSubtree(current, current->getKey(), min_ofright.second); //update value with min of right.
 
-          //update != remove. still needt to nix 35. value of 24 is now gone.
-          current->setKey(min_ofright.first); //now update the key.
-          current->setRight(removeFromSubtree(current, min_ofright.first)); //return for removeofSubtree is 36.
-          //now we delete the minimum in the right subree through calling remove.
+    //update != remove. still needt to nix 35. value of 24 is now gone.
+    current->setKey(min_ofright.first); //now update the key.
+    current->setRight(removeFromSubtree(current, min_ofright.first)); //return for removeofSubtree is 36.
+    //now we delete the minimum in the right subree through calling remove.
 
-          return current; //current is now updated to be the minmum of the right.
-        }
+    return current; //current is now updated to be the minmum of the right.
+  }
 
   }
 
@@ -247,74 +247,75 @@ LinkedBSTNode<K, V>* LinkedBST<K, V>::removeFromSubtree(LinkedBSTNode<K, V>* cur
 template <typename K, typename V>
 void LinkedBST<K, V>::deleteSubtree(LinkedBSTNode<K, V>* current) {
 
-        //delete my child and then delte myself ONCE i no longer have children.
-        deleteSubtree(current->getLeft()); //if the left child of current is null? what to do?
-        deleteSubtree(current->getRight());
-        delete current;
+  //delete my child and then delte myself ONCE i no longer have children.
+  if (current != nullptr){
+    deleteSubtree(current->getLeft()); //if the left child of current is null? what to do?
+    deleteSubtree(current->getRight());
+    delete current;
+  }
 
-    }
+}
 
 template <typename K, typename V>
 void LinkedBST<K, V>::buildPreOrderTraversal(LinkedBSTNode<K, V>* current,
   List<pair<K, V>>* list) {
 
 
-        if (current == nullptr){ //check if we have hit child of a leaf.
-          return ; //we don't want to do anything. you don't want to add an empty node to the list.
-        }
+if (current == nullptr){ //check if we have hit child of a leaf.
+  return ; //we don't want to do anything. you don't want to add an empty node to the list.
+}
 
-        else{
-          pair<K,V> pair_toinsert; //declaration
-          pair_toinsert = pair<K,V> (current->getKey(), current->getValue()); //assignment
-          list->insertLast(pair_toinsert); //add F to list
+else{
+  pair<K,V> pair_toinsert; //declaration
+  pair_toinsert = pair<K,V> (current->getKey(), current->getValue()); //assignment
+  list->insertLast(pair_toinsert); //add F to list
 
-          buildPreOrderTraversal(current->getLeft(), list); //add  A to list.
-          buildPreOrderTraversal(current->getRight(), list);
-        }
+  buildPreOrderTraversal(current->getLeft(), list); //add  A to list.
+  buildPreOrderTraversal(current->getRight(), list);
+}
 
-      }
+}
 
-      template <typename K, typename V>
-      void LinkedBST<K, V>::buildInOrderTraversal(LinkedBSTNode<K, V>* current,
-        List<pair<K, V>>* list) {
+template <typename K, typename V>
+void LinkedBST<K, V>::buildInOrderTraversal(LinkedBSTNode<K, V>* current,
+List<pair<K, V>>* list) {
 
-          if (current == nullptr){ //check if we have hit child of a leaf.
-            return ; //we don't want to do anything. you don't want to add an empty node to the list.
-          }
+  if (current == nullptr){ //check if we have hit child of a leaf.
+    return ; //we don't want to do anything. you don't want to add an empty node to the list.
+  }
 
-          buildInOrderTraversal(current->getLeft(), list); //add  A to list.
+  buildInOrderTraversal(current->getLeft(), list); //add  A to list.
 
-          pair<K,V> pair_toinsert; //declaration
-          pair_toinsert = pair<K,V> (current->getKey(), current->getValue()); //assignment
-          list->insertLast(pair_toinsert); //add F to list.
+  pair<K,V> pair_toinsert; //declaration
+  pair_toinsert = pair<K,V> (current->getKey(), current->getValue()); //assignment
+  list->insertLast(pair_toinsert); //add F to list.
 
-          buildInOrderTraversal(current->getRight(), list);
+  buildInOrderTraversal(current->getRight(), list);
 
-        }
+}
 
-        template <typename K, typename V>
-        void LinkedBST<K, V>::buildPostOrderTraversal(LinkedBSTNode<K, V>* current,
-          List<pair<K, V>>* list) {
+template <typename K, typename V>
+void LinkedBST<K, V>::buildPostOrderTraversal(LinkedBSTNode<K, V>* current,
+  List<pair<K, V>>* list) {
 
-            if (current == nullptr){ //check if we have hit child of a leaf.
-              return ; //we don't want to do anything. you don't want to add an empty node to the list.
-            }
+    if (current == nullptr){ //check if we have hit child of a leaf.
+      return ; //we don't want to do anything. you don't want to add an empty node to the list.
+    }
 
-            else{
+    else{
 
-              buildPostOrderTraversal(current->getLeft(), list); //add  A to list.
-              buildPostOrderTraversal(current->getRight(), list);
+      buildPostOrderTraversal(current->getLeft(), list); //add  A to list.
+      buildPostOrderTraversal(current->getRight(), list);
 
-              pair<K,V> pair_toinsert; //declaration
-              pair_toinsert = pair<K,V> (current->getKey(), current->getValue()); //assignment
-              list->insertLast(pair_toinsert); //add F to list
-            }
+      pair<K,V> pair_toinsert; //declaration
+      pair_toinsert = pair<K,V> (current->getKey(), current->getValue()); //assignment
+      list->insertLast(pair_toinsert); //add F to list
+    }
 
-          }
+  }
 
 template <typename K, typename V> int LinkedBST<K, V>::countNodes(LinkedBSTNode<K, V>* current) {
 
-  //what i would have done: create an int variable called total. create a left and right.
 
   if (current == nullptr) {
     return 0;
