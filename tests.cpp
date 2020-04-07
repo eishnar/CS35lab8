@@ -300,20 +300,24 @@ TEST(exampleContains){
 TEST(exampleGetKeys){
 
   LinkedBST<int, string>* bst = makeExampleBST();
-  //
-  // vector<int> all_keys;
-  // all_keys.push_back(1);
-  // all_keys.push_back(2);
-  // all_keys.push_back(3);
-  //
-  // CHECK_EQUAL(all_keys, bst->getKeys());
+  vector<int> method_keys = bst->getKeys();
 
-  //TEST ONE BY ONE.
-  //  need to ask charlie if we can assume they are al ints.
-  // how to sucessflly get retun from getKeys, which is vector <K>
+  vector<int> my_keys;
+  my_keys.push_back(1);
+  my_keys.push_back(2);
+  my_keys.push_back(3);
+  my_keys.push_back(4);
+  my_keys.push_back(6);
+  my_keys.push_back(7);
+  my_keys.push_back(9);
+
+  CHECK_EQUAL(my_keys.size(), method_keys.size());
+
+  for (int i = 0; i < my_keys.size(); i++) {
+      CHECK_EQUAL(my_keys[i], method_keys[i]);
+    }
 
   delete bst;
-
 }
 
 //test LinkedBST<K,V>::traverseInOrder

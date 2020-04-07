@@ -69,9 +69,9 @@ template <typename K, typename V> bool LinkedBST<K, V>::contains(K key) {
 }
 
 template <typename K, typename V> void LinkedBST<K, V>::remove(K key) {
-
-    removeFromSubtree(this->root, key); //only two parameters
-    this->size -= 1;
+  //LinkedBSTNode<K, V>* new_root;
+  this->root = removeFromSubtree(this->root, key);
+  this->size -= 1;
 }
 
 
