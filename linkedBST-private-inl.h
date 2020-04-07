@@ -1,10 +1,10 @@
 /*
-  Copyright (c) 2020
-  Swarthmore College Computer Science Department, Swarthmore PA
-  J. Brody, A. Danner, M. Gagne, L. Meeden, Z. Palmer, A. Soni, M. Wehar
-  Distributed as course material for Spring 2020
-  CPSC 035: Data Structures and Algorithms
-  https://tinyurl.com/vdxo2w8
+Copyright (c) 2020
+Swarthmore College Computer Science Department, Swarthmore PA
+J. Brody, A. Danner, M. Gagne, L. Meeden, Z. Palmer, A. Soni, M. Wehar
+Distributed as course material for Spring 2020
+CPSC 035: Data Structures and Algorithms
+https://tinyurl.com/vdxo2w8
 */
 
 #include <stdexcept>
@@ -17,29 +17,29 @@ using std::runtime_error;
 
 template <typename K, typename V> V LinkedBST<K, V>::findInSubtree(LinkedBSTNode<K, V>* current, K key) {
 
-    //If key not found, throw an error
-    if (current == nullptr) {
-        throw runtime_error("Key not found: LinkedBST<K,V>::findInSubtree");
-    }
-    // Found it. Return value
-    else if (key == current->getKey()) {
-        return current->getValue();
-    }
-    // If key less, search left subtree
-    else if (key < current->getKey()) {
-        return this->findInSubtree(current->getLeft(), key);
-    }
-    // If key greater, search right subtree
-    else { //key > current->getKey()
-        return this->findInSubtree(current->getRight(), key);
-    }
+  //If key not found, throw an error
+  if (current == nullptr) {
+    throw runtime_error("Key not found: LinkedBST<K,V>::findInSubtree");
+  }
+  // Found it. Return value
+  else if (key == current->getKey()) {
+    return current->getValue();
+  }
+  // If key less, search left subtree
+  else if (key < current->getKey()) {
+    return this->findInSubtree(current->getLeft(), key);
+  }
+  // If key greater, search right subtree
+  else { //key > current->getKey()
+    return this->findInSubtree(current->getRight(), key);
+  }
 }
 
 template <typename K, typename V> bool LinkedBST<K, V>::containsInSubtree(LinkedBSTNode<K, V>* current, K key) {
 
   //if tree has no contents, can't find. or if you hit a leaf with no children.
   if (current == nullptr) {
-      return false;
+    return false;
   }
 
   //if the root is the key you are looking for, the subtree contains the root, thus it's true
@@ -49,7 +49,7 @@ template <typename K, typename V> bool LinkedBST<K, V>::containsInSubtree(Linked
 
   //go left if less.
   else if (key < current->getKey()) {
-     return this->containsInSubtree(current->getLeft(), key); //change pointer of current to check the value to the left of the root.
+    return this->containsInSubtree(current->getLeft(), key); //change pointer of current to check the value to the left of the root.
   }
 
   //go right if more.
@@ -64,7 +64,7 @@ void LinkedBST<K, V>::updateInSubtree(LinkedBSTNode<K, V>* current, K key, V val
 
   //if tree has no contents, can't update anything. or if you go past the leaf. it means the key doesn't exist.
   if (current == nullptr) {
-      throw runtime_error("Key not found: LinkedBST<K,V>::updateInSubtree");
+    throw runtime_error("Key not found: LinkedBST<K,V>::updateInSubtree");
   }
 
   //if the root is the key you are looking for, the subtree contains the root, thus it's true
@@ -84,19 +84,19 @@ void LinkedBST<K, V>::updateInSubtree(LinkedBSTNode<K, V>* current, K key, V val
 }
 
 template <typename K, typename V> int LinkedBST<K, V>::getHeightInSubtree(LinkedBSTNode<K, V>* current) {
-    if (current == nullptr) {
-        return -1;
-    }
+  if (current == nullptr) {
+    return -1;
+  }
 
-    int left_height = this->getHeightInSubtree(current->getLeft());
-    int right_height = this->getHeightInSubtree(current->getRight());
+  int left_height = this->getHeightInSubtree(current->getLeft());
+  int right_height = this->getHeightInSubtree(current->getRight());
 
-    if (left_height > right_height) {
-        return left_height + 1;
-    }
-    else { //right_height >= left_height
-        return right_height +  1;
-    }
+  if (left_height > right_height) {
+    return left_height + 1;
+  }
+  else { //right_height >= left_height
+    return right_height +  1;
+  }
 }
 
 template <typename K, typename V>
@@ -109,10 +109,10 @@ pair<K, V> LinkedBST<K, V>::getMinInSubtree(LinkedBSTNode<K, V>* current) {
   //we only ever have to go left given BST properties. NEVER check the right.
   if (current->getLeft() == nullptr) {
 
-      K key = current->getKey();
-      V value = current->getValue();
-      min_pair = pair<K,V> (key,value);
-      return min_pair;
+    K key = current->getKey();
+    V value = current->getValue();
+    min_pair = pair<K,V> (key,value);
+    return min_pair;
   }
 
   else {
@@ -130,10 +130,10 @@ pair<K, V> LinkedBST<K, V>::getMaxInSubtree(LinkedBSTNode<K, V>* current) {
   //we want to stop there and grab the value of the rightmost leaf.
   if (current->getRight() == nullptr) {
 
-      K key = current->getKey();
-      V value = current->getValue();
-      max_pair = pair<K,V> (key,value);
-      return max_pair;
+    K key = current->getKey();
+    V value = current->getValue();
+    max_pair = pair<K,V> (key,value);
+    return max_pair;
   }
 
   else {
@@ -174,194 +174,203 @@ LinkedBSTNode<K, V>* LinkedBST<K, V>::insertInSubtree(LinkedBSTNode<K, V>* curre
 
 template <typename K, typename V>
 LinkedBSTNode<K, V>* LinkedBST<K, V>::removeFromSubtree(LinkedBSTNode<K, V>* current, K key) {
-  throw runtime_error(       "Problem in BST: Node count doesn't match tree size");
-  //we got beyond a leaf. and the key wasn't found. or the tree is empty.
-  // if (current = nullptr){
-  //     throw runtime_error("key does not exist in BST");
-  // }
-  //
-  // if (key == current->getKey()){
-  //     this->size = this->size - 1;
-  //
-  //     //OPTION 1: if key to remove is a leaf:
-  //     if (current->getLeft() == nullptr) && (current->getRight() == nullptr);{
-  //
-  //       delete current;  //can simply delete it. //gets rid of 13
-  //       return nullptr; //goes back to 12 - DRAW STACK to see where it returns nullptr to.
-  //     }
-  //
-  //    //OPTION 2: if parent with 1 child.
-  //    //in or logic, if one is true, it enters.
-  //      if (current->getLeft() == nullptr) || (current->getRight() == nullptr);{
-  //
-  //       LinkedBSTNode<K, V>* child; //need to store store the child
-  //       //if child is less than key.
-  //       if (current->getLeft() != nullptr){
-  //         child = current->getLeft();
-  //         delete current; //now we can nix the child's parent wihout worrying about losing the child
-  //         return child;
-  //       }
-  //
-  //       //if child is more
-  //       else{
-  //         child = current->getRight();
-  //         delete current; //now we can nix the child's parent without worrying about losing the child.
-  //         return child;
-//   //       }
-//   //     }
-//   //
-//   //   //OPTION 3: if parent with 2 child. //YIKES!!!!!!!
-//   //   if (current->getLeft() != nullptr) && (current->getRight() != nullptr);{
-//   //     pair<K, V> temp_pair;
-//   //     temp_pair = getMinInSubtree(current->getRight()); //min of right. <35, "35">
-//   //
-//   //
-//   //     updateInSubtree(current, current->getKey(), temp_pair.second); //update value with min of right.
-//   //     //update != remove. still needt to nix 35. value of 24 is now gone.
-//   //     current->setKey(temp_pair.first); //now update the key.
-//   //
-//   //     current->setRight(removeFromSubtree(current, temp_pair.first)) //return for removeofSubtree is 36.
-//   //     //now we nix the minimum in the right subree
-//   //     return current;
-//   //       //35 pair.first;  //check if setKey method.
-//   //
-//   //   }
-//
-//   }
-//
-//   //search for the key we want to remove. if less, go left.
-//   // else if (key < current->getKey()){
-//   //   current->setLeft(removeFromSubtree(current->getLeft(), key)); //update current.
-//   //   //DO NOT RETURN because want to look at other subtree exclusively.
-//   //   //return for remove is LinkedBSTNode<K, V>*, which is passed into setLeft(takes in pointer).
-//   // }
-//   //
-//   // //search for the key we want to remove. if more, go right.
-//   // else if (key > current->getKey()){
-//   //   current->setRight(removeFromSubtree(current->getRight(), key)); //update current.
-//   // }
-//
- }
+  // throw runtime_error(       "Problem in BST: Node count doesn't match tree size");
+  // we got beyond a leaf. and the key wasn't found. or the tree is empty.
 
-template <typename K, typename V>
-void LinkedBST<K, V>::deleteSubtree(LinkedBSTNode<K, V>* current) {
+  if (current == nullptr){
+    throw runtime_error("key does not exist in BST");
+    //return ; or current. 
+  }
 
-    throw runtime_error("Not yet implemented: LinkedBST<K,V>::deleteSubtree");
+  else if (key == current->getKey()){
+    this->size = this->size - 1;
 
-    // if (current == nullptr){
-    //   throw runtime_error("BST is empty, nothing to delete");
-    // }
-    //
-    // //delete my child and then delte myself ONCE i no longer have children.
-    // else if ((current->getLeft() == nullptr) && (current->getRight() == nullptr)){
-    //   delete current->getLeft(); //use g as example. don't need to do this.
-    //   delete current->getRight();
-    //   delete current;
-    //   return ;
-    // }
-    //
-    // else{
-    //   deleteSubtree(current->getLeft());
-    //   deleteSubtree(current->getRight());
-    //
-    // }
-    // //
-    // // while((current->getLeft() != nullptr) && (current->getRight() != nullptr){
-    // //
-    // //   deleteSubtree(removeFromSubtree(current, current->getKey()));
-    // //
-    // // }
-}
+    //OPTION 1: if key to remove is a leaf.
+    if ((current->getLeft() == nullptr) && (current->getRight() == nullptr)){
 
-template <typename K, typename V>
-void LinkedBST<K, V>::buildPreOrderTraversal(LinkedBSTNode<K, V>* current,
-                                             List<pair<K, V>>* list) {
-
-
-     if (current == nullptr){ //check if we have hit child of a leaf.
-       return ; //we don't want to do anything. you don't want to add an empty node to the list.
-     }
-
-     else{
-       pair<K,V> pair_toinsert; //declaration
-       pair_toinsert = pair<K,V> (current->getKey(), current->getValue()); //assignment
-       list->insertLast(pair_toinsert); //add F to list
-
-       buildPreOrderTraversal(current->getLeft(), list); //add  A to list.
-       buildPreOrderTraversal(current->getRight(), list);
-     }
-
-}
-
-template <typename K, typename V>
-void LinkedBST<K, V>::buildInOrderTraversal(LinkedBSTNode<K, V>* current,
-                                            List<pair<K, V>>* list) {
-
-    if (current == nullptr){ //check if we have hit child of a leaf.
-      return ; //we don't want to do anything. you don't want to add an empty node to the list.
+      delete current;  //can simply delete it. //gets rid of 13
+      return nullptr; //goes back to 12 - DRAW STACK to see where it returns nullptr to.
     }
 
-    buildInOrderTraversal(current->getLeft(), list); //add  A to list.
+    //OPTION 2: if parent with 1 child.
+    //in or logic, if one is true, it enters.
 
-    pair<K,V> pair_toinsert; //declaration
-    pair_toinsert = pair<K,V> (current->getKey(), current->getValue()); //assignment
-    list->insertLast(pair_toinsert); //add F to list.
+    else if ((current->getLeft() == nullptr) || (current->getRight() == nullptr)){
 
-    buildInOrderTraversal(current->getRight(), list);
+      LinkedBSTNode<K, V>* new_root; //need to  store the child
 
-}
+      //if child is less than key.
+      if (current->getLeft() != nullptr){
+        new_root = current->getLeft();
+        delete current; //now we can nix the child's parent wihout worrying about losing the child
+        return new_root; //gets returned to the recursive call of removeFromSubtree.
+      }
 
-template <typename K, typename V>
-void LinkedBST<K, V>::buildPostOrderTraversal(LinkedBSTNode<K, V>* current,
-                                              List<pair<K, V>>* list) {
+      //if child is more
+      else{
+        new_root = current->getRight();
+        delete current; //now we can nix the child's parent without worrying about losing the child.
+        return new_root;
+        //       }
+        //     }
+        //
 
-    if (current == nullptr){ //check if we have hit child of a leaf.
-      return ; //we don't want to do anything. you don't want to add an empty node to the list.
+        //OPTION 3: if parent with 2 child. //YIKES!!!!!!!
+        if ((current->getLeft() != nullptr) && (current->getRight() != nullptr)){
+          pair<K, V> temp_pair;
+          temp_pair = getMinInSubtree(current->getRight()); //min of right. <35, "35">
+
+
+          updateInSubtree(current, current->getKey(), temp_pair.second); //update value with min of right.
+          //update != remove. still needt to nix 35. value of 24 is now gone.
+          current->setKey(temp_pair.first); //now update the key.
+
+          current->setRight(removeFromSubtree(current, temp_pair.first)) //return for removeofSubtree is 36.
+          //now we nix the minimum in the right subree
+          return current;
+          //35 pair.first;  //check if setKey method.
+
+        }
+
+      }
+
+      //search for the key we want to remove. if less, go left.
+      else if (key < current->getKey()){
+        current->setLeft(removeFromSubtree(current->getLeft(), key)); //update current.
+        //DO NOT RETURN because want to look at other subtree exclusively.
+        //return for remove is LinkedBSTNode<K, V>*, which is passed into setLeft(takes in pointer).
+      }
+
+      //search for the key we want to remove. if more, go right.
+      else if (key > current->getKey()){
+        current->setRight(removeFromSubtree(current->getRight(), key)); //update current.
+      }
+
     }
 
-    else{
+    template <typename K, typename V>
+    void LinkedBST<K, V>::deleteSubtree(LinkedBSTNode<K, V>* current) {
 
-    buildPostOrderTraversal(current->getLeft(), list); //add  A to list.
-    buildPostOrderTraversal(current->getRight(), list);
+      // throw runtime_error("Not yet implemented: LinkedBST<K,V>::deleteSubtree");
 
-    pair<K,V> pair_toinsert; //declaration
-    pair_toinsert = pair<K,V> (current->getKey(), current->getValue()); //assignment
-    list->insertLast(pair_toinsert); //add F to list
+       if (current != nullptr){
+      //   throw runtime_error("BST is empty, nothing to delete");
+      // }
+
+      //delete my child and then delte myself ONCE i no longer have children.
+      // else if ((current->getLeft() == nullptr) && (current->getRight() == nullptr)){
+
+        deleteSubtree(current->getLeft());
+        deleteSubtree(current->getRight());
+        delete current;
+        return ;
+
+        // delete current->getLeft(); //use g as example. don't need to do this.
+        // delete current->getRight();
+        // delete current;
+        // return ;
+      }
+      //
+
+      }
+      return ;
+      //
+      // while((current->getLeft() != nullptr) && (current->getRight() != nullptr){
+      //
+      //   deleteSubtree(removeFromSubtree(current, current->getKey()));
+      //
+      // }
     }
 
-}
+    template <typename K, typename V>
+    void LinkedBST<K, V>::buildPreOrderTraversal(LinkedBSTNode<K, V>* current,
+      List<pair<K, V>>* list) {
 
-template <typename K, typename V>
-int LinkedBST<K, V>::countNodes(LinkedBSTNode<K, V>* current) {
 
-  //what i would have done: create an int variable called total. create a left and right.
+        if (current == nullptr){ //check if we have hit child of a leaf.
+          return ; //we don't want to do anything. you don't want to add an empty node to the list.
+        }
 
-    if (current == nullptr) {
-        return 0;
-    } else {
-        return this->countNodes(current->getLeft()) + //what if a parent only had a right child, but not a lef
-               this->countNodes(current->getRight()) + 1; //how does it know when to stop? how does it know when it hits a leaf?
-    }
-}
+        else{
+          pair<K,V> pair_toinsert; //declaration
+          pair_toinsert = pair<K,V> (current->getKey(), current->getValue()); //assignment
+          list->insertLast(pair_toinsert); //add F to list
 
-template <typename K, typename V>
-void LinkedBST<K, V>::verifyKeysBoundedBy(LinkedBSTNode<K, V>* current,
-                                          bool minApplies, K minBound,
-                                          bool maxApplies, K maxBound) {
-    if (minApplies && current->getKey() < minBound) {
-        throw runtime_error("LinkedBST::verifyKeysBoundedBy: a node has a "
-                            "right descendent with lesser key");
-    }
-    if (maxApplies && current->getKey() > maxBound) {
-        throw runtime_error("LinkedBST::verifyKeysBoundedBy: a node has a left "
-                            "descendent with greater key");
-    }
-    if (current->getLeft() != nullptr) {
-        verifyKeysBoundedBy(current->getLeft(), minApplies, minBound, true,
-                            current->getKey());
-    }
-    if (current->getRight() != nullptr) {
-        verifyKeysBoundedBy(current->getRight(), true, current->getKey(),
-                            maxApplies, maxBound);
-    }
-}
+          buildPreOrderTraversal(current->getLeft(), list); //add  A to list.
+          buildPreOrderTraversal(current->getRight(), list);
+        }
+
+      }
+
+      template <typename K, typename V>
+      void LinkedBST<K, V>::buildInOrderTraversal(LinkedBSTNode<K, V>* current,
+        List<pair<K, V>>* list) {
+
+          if (current == nullptr){ //check if we have hit child of a leaf.
+            return ; //we don't want to do anything. you don't want to add an empty node to the list.
+          }
+
+          buildInOrderTraversal(current->getLeft(), list); //add  A to list.
+
+          pair<K,V> pair_toinsert; //declaration
+          pair_toinsert = pair<K,V> (current->getKey(), current->getValue()); //assignment
+          list->insertLast(pair_toinsert); //add F to list.
+
+          buildInOrderTraversal(current->getRight(), list);
+
+        }
+
+        template <typename K, typename V>
+        void LinkedBST<K, V>::buildPostOrderTraversal(LinkedBSTNode<K, V>* current,
+          List<pair<K, V>>* list) {
+
+            if (current == nullptr){ //check if we have hit child of a leaf.
+              return ; //we don't want to do anything. you don't want to add an empty node to the list.
+            }
+
+            else{
+
+              buildPostOrderTraversal(current->getLeft(), list); //add  A to list.
+              buildPostOrderTraversal(current->getRight(), list);
+
+              pair<K,V> pair_toinsert; //declaration
+              pair_toinsert = pair<K,V> (current->getKey(), current->getValue()); //assignment
+              list->insertLast(pair_toinsert); //add F to list
+            }
+
+          }
+
+          template <typename K, typename V>
+          int LinkedBST<K, V>::countNodes(LinkedBSTNode<K, V>* current) {
+
+            //what i would have done: create an int variable called total. create a left and right.
+
+            if (current == nullptr) {
+              return 0;
+            } else {
+              return this->countNodes(current->getLeft()) + //what if a parent only had a right child, but not a lef
+              this->countNodes(current->getRight()) + 1; //how does it know when to stop? how does it know when it hits a leaf?
+            }
+          }
+
+          template <typename K, typename V>
+          void LinkedBST<K, V>::verifyKeysBoundedBy(LinkedBSTNode<K, V>* current,
+            bool minApplies, K minBound,
+            bool maxApplies, K maxBound) {
+              if (minApplies && current->getKey() < minBound) {
+                throw runtime_error("LinkedBST::verifyKeysBoundedBy: a node has a "
+                "right descendent with lesser key");
+              }
+              if (maxApplies && current->getKey() > maxBound) {
+                throw runtime_error("LinkedBST::verifyKeysBoundedBy: a node has a left "
+                "descendent with greater key");
+              }
+              if (current->getLeft() != nullptr) {
+                verifyKeysBoundedBy(current->getLeft(), minApplies, minBound, true,
+                current->getKey());
+              }
+              if (current->getRight() != nullptr) {
+                verifyKeysBoundedBy(current->getRight(), true, current->getKey(),
+                maxApplies, maxBound);
+              }
+            }

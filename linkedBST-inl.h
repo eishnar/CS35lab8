@@ -29,7 +29,7 @@ template <typename K, typename V> LinkedBST<K, V>::LinkedBST() {
 }
 
 template <typename K, typename V> LinkedBST<K, V>::~LinkedBST() {
-    //delete root;
+    deleteSubtree(this->root);
 }
 
 template <typename K, typename V>
@@ -70,15 +70,13 @@ template <typename K, typename V> bool LinkedBST<K, V>::contains(K key) {
 
 template <typename K, typename V> void LinkedBST<K, V>::remove(K key) {
 
-  throw runtime_error( "Problem in BST: Node count doesn't match tree size");
-    // removeFromSubtree(this->root, key); //only two parameters
-    // this->size = this->size - 1;
+    removeFromSubtree(this->root, key); //only two parameters
+    this->size -= 1;
 }
 
 
 
 template <typename K, typename V> vector<K> LinkedBST<K, V>::getKeys() {
-throw runtime_error( "Problem in BST: Node count doesn't match tree size");
 
   vector<K> keys;
   List<pair<K, V>>* list_param = new STLList<pair<K, V>>; //empty right now, just allocated allocate memory
@@ -156,8 +154,6 @@ template <typename K, typename V> vector<pair<K, V>> LinkedBST<K, V>::traverseIn
 }
 
 
-
-
 template <typename K, typename V> vector<pair<K, V>> LinkedBST<K, V>::traversePostOrder() {
 
   vector<pair<K,V>> post_traversal;
@@ -216,6 +212,7 @@ template <typename K, typename V> void LinkedBST<K, V>::checkInvariants() {
     }
 
     if (this->root != nullptr) {
+
         // The bounds provided here are arbitrary because the false arguments
         // indicate that they do not apply.  But we need a value of type K to
         // fill this parameter since we don't have globally min/max K values

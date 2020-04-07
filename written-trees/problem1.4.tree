@@ -8,6 +8,7 @@
 
 : We remove 24 as indicated in the instructions. I used the min of the right tree as the new root.
 : The resulting tree looks like this.
+: 
 
              40
       35           54
@@ -16,4 +17,4 @@
  10
 
 
-: At this point, the tree is in balance. 
+: At this point, the tree is in balance.
