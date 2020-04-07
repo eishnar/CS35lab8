@@ -1,3 +1,4 @@
+
 /*
 Copyright (c) 2020
 Swarthmore College Computer Science Department, Swarthmore PA
@@ -182,7 +183,6 @@ LinkedBSTNode<K, V>* LinkedBST<K, V>::removeFromSubtree(LinkedBSTNode<K, V>* cur
   }
 
   else if (key == current->getKey()){ //WE FOUND THE KEY. WE CAN DO 3 THINGS WITH IT.
-    this->size = this->size - 1;
 
         //OPTION 1: if key to remove is a leaf.
         if ((current->getLeft() == nullptr) && (current->getRight() == nullptr)){
@@ -233,15 +233,13 @@ LinkedBSTNode<K, V>* LinkedBST<K, V>::removeFromSubtree(LinkedBSTNode<K, V>* cur
   //search for the key we want to remove. if less, go left.
   else if (key < current->getKey()){
     current->setLeft(removeFromSubtree(current->getLeft(), key)); //update current.
-    //return current;
-    //DO NOT RETURN because want to look at other subtree exclusively.
-    //return for remove is LinkedBSTNode<K, V>*, which is passed into setLeft(takes in pointer).
+    return current;
   }
 
   //search for the key we want to remove. if more, go right.
   else{ //(key > current->getKey()){
     current->setRight(removeFromSubtree(current->getRight(), key)); //update current.
-    //return current;
+    return current;
   }
 
 }
@@ -249,21 +247,11 @@ LinkedBSTNode<K, V>* LinkedBST<K, V>::removeFromSubtree(LinkedBSTNode<K, V>* cur
 template <typename K, typename V>
 void LinkedBST<K, V>::deleteSubtree(LinkedBSTNode<K, V>* current) {
 
-      // throw runtime_error("Not yet implemented: LinkedBST<K,V>::deleteSubtree");
-
-       if (current != nullptr){
         //delete my child and then delte myself ONCE i no longer have children.
         deleteSubtree(current->getLeft()); //if the left child of current is null? what to do?
         deleteSubtree(current->getRight());
         delete current;
-        return ;
-      }
 
-      // while((current->getLeft() != nullptr) && (current->getRight() != nullptr){
-      else{
-        throw runtime_error("BST is empty, nothing to delete");
-        return ; //what if you have reached the bottom of a tree?
-      }
     }
 
 template <typename K, typename V>

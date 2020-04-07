@@ -29,7 +29,9 @@ template <typename K, typename V> LinkedBST<K, V>::LinkedBST() {
 }
 
 template <typename K, typename V> LinkedBST<K, V>::~LinkedBST() {
-    deleteSubtree(this->root);
+    if (this->root != nullptr){
+      deleteSubtree(this->root);
+    }
 }
 
 template <typename K, typename V>
