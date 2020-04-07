@@ -218,11 +218,12 @@ else if (key == current->getKey()){ //WE FOUND THE KEY. WE CAN DO 3 THINGS WITH 
   else{
     pair<K, V> min_ofright;
     min_ofright = getMinInSubtree(current->getRight()); //min of right. <35, "35">. store from function call.
-    updateInSubtree(current, current->getKey(), min_ofright.second); //update value with min of right.
+    //updateInSubtree(current, current->getKey(), min_ofright.second); //update value with min of right.
 
     //update != remove. still needt to nix 35. value of 24 is now gone.
     current->setKey(min_ofright.first); //now update the key.
-    current->setRight(removeFromSubtree(current, min_ofright.first)); //return for removeofSubtree is 36.
+    current->setValue(min_ofright.second);
+    current->setRight(removeFromSubtree(current->getRight(), min_ofright.first)); //return for removeofSubtree is 36.
     //now we delete the minimum in the right subree through calling remove.
 
     return current; //current is now updated to be the minmum of the right.
