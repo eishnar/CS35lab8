@@ -71,7 +71,6 @@ template <typename K, typename V> bool LinkedBST<K, V>::contains(K key) {
 }
 
 template <typename K, typename V> void LinkedBST<K, V>::remove(K key) {
-  //LinkedBSTNode<K, V>* new_root;
   this->root = removeFromSubtree(this->root, key);
   this->size -= 1;
 }
@@ -91,8 +90,8 @@ template <typename K, typename V> vector<K> LinkedBST<K, V>::getKeys() {
     keys.push_back(temp_key);
   }
 
-  return keys; //this return type matches the one the function, getKeys, returns.
   delete list_param;
+  return keys; //this return type matches the one the function, getKeys, returns.
 
 }
 
@@ -133,8 +132,10 @@ vector<pair<K, V>> LinkedBST<K, V>::traversePreOrder() {
     pre_traversal.push_back(pair<K, V>(temp_key, temp_value)); //add them both to the list as a pair item.
 
   }
-    return pre_traversal;
+
+
     delete list_param;
+    return pre_traversal;
 
   }
 
@@ -155,10 +156,8 @@ template <typename K, typename V> vector<pair<K, V>> LinkedBST<K, V>::traverseIn
 
   }
 
-  return inorder_traversal;
-
-  //delete inorder_traversal;
   delete list_param;
+  return inorder_traversal;
 
 }
 
@@ -176,11 +175,8 @@ template <typename K, typename V> vector<pair<K, V>> LinkedBST<K, V>::traversePo
     post_traversal.push_back(pair<K, V>(temp_key, temp_value));
   }
 
+    delete list_param;
     return post_traversal;
-
-    //delete post_traversal;
-    delete list_param; //need a for loop. 
-    delete &list_param;
 
 
 }
