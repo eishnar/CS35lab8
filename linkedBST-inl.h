@@ -92,6 +92,8 @@ template <typename K, typename V> vector<K> LinkedBST<K, V>::getKeys() {
   }
 
   return keys; //this return type matches the one the function, getKeys, returns.
+  delete list_param;
+
 }
 
 template <typename K, typename V> vector<pair<K, V>> LinkedBST<K, V>::getItems() { //already implemented.
@@ -132,6 +134,8 @@ vector<pair<K, V>> LinkedBST<K, V>::traversePreOrder() {
 
   }
     return pre_traversal;
+    delete list_param;
+
   }
 
 
@@ -153,6 +157,9 @@ template <typename K, typename V> vector<pair<K, V>> LinkedBST<K, V>::traverseIn
 
   return inorder_traversal;
 
+  //delete inorder_traversal;
+  delete list_param;
+
 }
 
 
@@ -170,6 +177,11 @@ template <typename K, typename V> vector<pair<K, V>> LinkedBST<K, V>::traversePo
   }
 
     return post_traversal;
+
+    //delete post_traversal;
+    delete list_param; //need a for loop. 
+    delete &list_param;
+
 
 }
 

@@ -14,11 +14,10 @@
 
 : The resulting tree looks like this:
 
-# TODO: write the post-balance tree here.
       40
   30      50
 20      47
 
 : Is the tree now balanced?  If not, perform the next rotation here.  Repeat until the tree is balanced.
-
-: Yes the tree is balanced. There are no roots with children with a difference greater than 2. 
+:
+: Yes the tree is balanced. There are no roots with children with a difference greater than 2.
