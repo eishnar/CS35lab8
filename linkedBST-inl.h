@@ -1,10 +1,10 @@
 /*
-  Copyright (c) 2020
-  Swarthmore College Computer Science Department, Swarthmore PA
-  J. Brody, A. Danner, M. Gagne, L. Meeden, Z. Palmer, A. Soni, M. Wehar
-  Distributed as course material for Spring 2020
-  CPSC 035: Data Structures and Algorithms
-  https://tinyurl.com/vdxo2w8
+Copyright (c) 2020
+Swarthmore College Computer Science Department, Swarthmore PA
+J. Brody, A. Danner, M. Gagne, L. Meeden, Z. Palmer, A. Soni, M. Wehar
+Distributed as course material for Spring 2020
+CPSC 035: Data Structures and Algorithms
+https://tinyurl.com/vdxo2w8
 */
 
 #include <stdexcept>
@@ -29,9 +29,9 @@ template <typename K, typename V> LinkedBST<K, V>::LinkedBST() {
 }
 
 template <typename K, typename V> LinkedBST<K, V>::~LinkedBST() {
-    if (this->root != nullptr){
-      deleteSubtree(this->root);
-    }
+  if (this->root != nullptr){ //you don't need to delete an empty tree. hence this condition.
+  deleteSubtree(this->root);
+}
 }
 
 template <typename K, typename V>
@@ -47,26 +47,24 @@ template <typename K, typename V> bool LinkedBST<K, V>::isEmpty() {
 
 template <typename K, typename V> void LinkedBST<K, V>::insert(K key, V value) {
 
-    // LinkedBSTNode<K, V>* node = insertInSubtree(this->root, key, value); //three parameters for insert in private file.
-    // this->root = node; //update the root.
-    this->root = insertInSubtree(this->root, key, value); //three parameters for insert in the private file.
-    this->size += 1;
+  this->root = insertInSubtree(this->root, key, value); //three parameters for insert in the private file.
+  this->size += 1;
 }
 
 template <typename K, typename V> void LinkedBST<K, V>::update(K key, V value) {
-    updateInSubtree(this->root, key, value);
+  updateInSubtree(this->root, key, value);
 }
 
 
 template <typename K, typename V>
 V LinkedBST<K, V>::get(K key) {
 
-    return this->findInSubtree(this->root, key); //only two parameters
+  return this->findInSubtree(this->root, key); //only two parameters
 
 }
 
 template <typename K, typename V> bool LinkedBST<K, V>::contains(K key) {
-    return containsInSubtree(this->root, key);
+  return containsInSubtree(this->root, key);
 
 }
 
@@ -96,12 +94,12 @@ template <typename K, typename V> vector<K> LinkedBST<K, V>::getKeys() {
 }
 
 template <typename K, typename V> vector<pair<K, V>> LinkedBST<K, V>::getItems() { //already implemented.
-    return this->traverseInOrder();
+  return this->traverseInOrder();
 }
 
 template <typename K, typename V> int LinkedBST<K, V>::getHeight() {
 
-    return this->getHeightInSubtree(this->root);
+  return this->getHeightInSubtree(this->root);
 }
 
 template <typename K, typename V>
@@ -133,14 +131,10 @@ vector<pair<K, V>> LinkedBST<K, V>::traversePreOrder() {
 
   }
 
+  delete list_param;
+  return pre_traversal;
 
-    delete list_param;
-    return pre_traversal;
-
-  }
-
-
-
+}
 
 template <typename K, typename V> vector<pair<K, V>> LinkedBST<K, V>::traverseInOrder() {
 
@@ -175,59 +169,57 @@ template <typename K, typename V> vector<pair<K, V>> LinkedBST<K, V>::traversePo
     post_traversal.push_back(pair<K, V>(temp_key, temp_value));
   }
 
-    delete list_param;
-    return post_traversal;
+  delete list_param;
+  return post_traversal;
 
 
 }
 
-
-
 template <typename K, typename V>
 vector<pair<K, V>> LinkedBST<K, V>::traverseLevelOrder() {
 
-    // Start BFS at root. As nodes are removed from queue, add pairs to vector.
-    vector<pair<K,V>> level_traversal;
+  // Start BFS at root. As nodes are removed from queue, add pairs to vector.
+  vector<pair<K,V>> level_traversal;
 
-    // Note, there's no need to deal with finding neighbors or marking visited
-    // here. A node's only neighbors that haven't already been visited will be
-    // their children.
-    if (this->root != nullptr) {
-        STLQueue<LinkedBSTNode<K,V>*> search_queue;
-        search_queue.enqueue(this->root);
+  // Note, there's no need to deal with finding neighbors or marking visited
+  // here. A node's only neighbors that haven't already been visited will be
+  // their children.
+  if (this->root != nullptr) {
+    STLQueue<LinkedBSTNode<K,V>*> search_queue;
+    search_queue.enqueue(this->root);
 
 
-        while (search_queue.getSize() > 0) {
-            LinkedBSTNode<K,V>* current = search_queue.dequeue();
-            // Add to traversal
-            level_traversal.push_back(pair<K,V>(current->getKey(), current->getValue()));
-            if (current->getLeft() != nullptr) {
-                search_queue.enqueue(current->getLeft());
-            }
-            if (current->getRight() != nullptr) {
-                search_queue.enqueue(current->getRight());
-            }
-        }
+    while (search_queue.getSize() > 0) {
+      LinkedBSTNode<K,V>* current = search_queue.dequeue();
+      // Add to traversal
+      level_traversal.push_back(pair<K,V>(current->getKey(), current->getValue()));
+      if (current->getLeft() != nullptr) {
+        search_queue.enqueue(current->getLeft());
+      }
+      if (current->getRight() != nullptr) {
+        search_queue.enqueue(current->getRight());
+      }
     }
+  }
 
-    return level_traversal;
+  return level_traversal;
 }
 
 
 
 
 template <typename K, typename V> void LinkedBST<K, V>::checkInvariants() {
-    if (this->countNodes(this->root) != this->size) {
-        throw runtime_error("Problem in BST: Node count doesn't match tree size");
-    }
+  if (this->countNodes(this->root) != this->size) {
+    throw runtime_error("Problem in BST: Node count doesn't match tree size");
+  }
 
-    if (this->root != nullptr) {
+  if (this->root != nullptr) {
 
-        // The bounds provided here are arbitrary because the false arguments
-        // indicate that they do not apply.  But we need a value of type K to
-        // fill this parameter since we don't have globally min/max K values
-        // generically.
-        this->verifyKeysBoundedBy(this->root, false, this->root->getKey(),
-                                  false, this->root->getKey());
-    }
+    // The bounds provided here are arbitrary because the false arguments
+    // indicate that they do not apply.  But we need a value of type K to
+    // fill this parameter since we don't have globally min/max K values
+    // generically.
+    this->verifyKeysBoundedBy(this->root, false, this->root->getKey(),
+    false, this->root->getKey());
+  }
 }

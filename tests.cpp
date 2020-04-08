@@ -301,6 +301,7 @@ TEST(exampleGetKeys){
 
   LinkedBST<int, string>* bst = makeExampleBST();
   vector<int> method_keys = bst->getKeys();
+  //since we know every key in the BST is of type int, we can declare it like that.
 
   vector<int> my_keys;
   my_keys.push_back(1);
@@ -325,7 +326,6 @@ TEST(exampleInOrderTraversal){
   LinkedBST<int, string>* bst = makeExampleBST();
   vector<pair<int, string>> traversal = bst->traverseInOrder();
 
-  //order of keys is changed.
   vector<pair<int, string>> expected;
   expected.push_back(pair<int, string>(1, "1"));
   expected.push_back(pair<int, string>(2, "2"));
